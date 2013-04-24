@@ -38,6 +38,12 @@
             <email>neaghfoz@gmail.com</email>
             <timezone></timezone>
         </developer>
+        <developer>
+            <id>1</id>
+            <name>zhiming zhong</name>
+            <email>btxhuman@gmail.com</email>
+            <timezone></timezone>
+        </developer>
     </developers>
 
 
