@@ -36,13 +36,13 @@
             <id>1</id>
             <name>Zhaofeng Zhou</name>
             <email>neaghfoz@gmail.com</email>
-            <timezone></timezone>
+            <timezone>UTC+8</timezone>
         </developer>
         <developer>
-            <id>1</id>
-            <name>zhiming zhong</name>
+            <id>2</id>
+            <name>Zhiming Zhong</name>
             <email>btxhuman@gmail.com</email>
-            <timezone></timezone>
+            <timezone>UTC+8</timezone>
         </developer>
     </developers>
 
