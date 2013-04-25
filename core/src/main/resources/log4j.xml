@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+    <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} [%p] %l %m%n" />
+        </layout>
+    </appender>
+    <appender name="filelog" class="org.apache.log4j.DailyRollingFileAppender"> 
+	  <!-- 设置通道file和输出方式：org.apache.log4j.RollingFileAppender --> 
+	  <param name="DatePattern" value="'.'yyyy-MM-dd" />
+	  
+	  
+	  <param name="File" value="D:/apache-tomcat-6.0.36/logs/gzsmzy/log4j.log" /><!-- 设置File参数：日志输出文件名 --> 
+	  <param name="Append" value="true" /><!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 --> 
+	  <layout class="org.apache.log4j.PatternLayout"> 
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %m%n" />
+	  </layout> 
+	</appender>
+    
+    <logger name="org.quartz">
+        <level value="error" />
+    </logger>
+    <logger name="org.apache">
+        <level value="debug" />
+    </logger>
+    <!-- Do1平台日志 -->
+    <logger name="cn.com.do1">
+        <level value="debug" />
+    </logger>
+    <!-- 控制台输出日志 -->
+    <root>
+    	<level value="info" />
+		<appender-ref ref="ConsoleAppender" />
+		<appender-ref ref="filelog" />
+    </root>
+</log4j:configuration>
