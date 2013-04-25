@@ -10,7 +10,7 @@ public class Demo1Service implements IDemo1Service {
 	private static final Logger log  = LoggerFactory.getLogger(Demo1Service.class);
 	
 	public void showDemo1() {
-		log.info("测试日志");
+		log.debug("测试日志");
 		System.out.println("just show Demo1");
 	}
 
