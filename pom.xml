@@ -55,12 +55,24 @@
         <web.framework>struts</web.framework>
         <db.name>somiyar</db.name>
 
-        <!-- Framework dependency versions -->
+        <!-- 所用到框架的版本号 -->
         <commons.fileupload.version>1.2.1</commons.fileupload.version>
         <commons.io.version>2.0.1</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
         <spring.version>3.1.3.RELEASE</spring.version>
         <struts.version>2.3.7</struts.version>
+		<hibernate.version>4.1.8.Final</hibernate.version>
+		
+		<!-- 所用到组件的版本号 -->
+		<aspectj.version>1.6.10</aspectj.version>
+		<commons.beanutils.version>1.8.3</commons.beanutils.version>
+		<commons.collections.version>3.2.1</commons.collections.version>
+		<commons.dbcp.version>1.3</commons.dbcp.version>
+		<commons.lang.version>2.6</commons.lang.version>
+		<hibernate.search.version>4.1.1.Final</hibernate.search.version>
+		<log4j.version>1.2.17</log4j.version>
+		<slf4j.version>1.6.1</slf4j.version>
+		<spring.security.version>3.1.3.RELEASE</spring.security.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.2.4</cargo.version>
@@ -96,6 +108,7 @@
         <jdbc.url>jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password/>
+        
     </properties>
   <modules>
     <module>core</module>
