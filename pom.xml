@@ -112,9 +112,9 @@
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
         <jdbc.version>5.1.22</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-        <jdbc.url>jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</jdbc.url>
-        <jdbc.username>root</jdbc.username>
-        <jdbc.password/>
+        <jdbc.url>jdbc:mysql://50.116.9.124/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</jdbc.url>
+        <jdbc.username>developer</jdbc.username>
+        <jdbc.password>AFDBya889zfH8y3f</jdbc.password>
         
     </properties>
   <modules>
