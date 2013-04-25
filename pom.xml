@@ -45,7 +45,14 @@
             <timezone>UTC+8</timezone>
         </developer>
     </developers>
-
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
 
     <properties>
         <!-- Application settings -->
