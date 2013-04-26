@@ -10,8 +10,9 @@ public class Demo1Service implements IDemo1Service {
 	private static final Logger log  = LoggerFactory.getLogger(Demo1Service.class);
 	
 	public void showDemo1() {
-		log.debug("²âÊÔÈÕÖ¾");
+		log.debug("æµ‹è¯•æ—¥å¿—");
 		System.out.println("just show Demo1");
 	}
 
 }
+	

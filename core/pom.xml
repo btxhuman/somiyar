@@ -15,24 +15,32 @@
 	<packaging>jar</packaging>
 	<name>Somiyar Core</name>
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-            </plugin>
-        </plugins>
-    </build>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+			</plugin>
+		</plugins>
+	</build>
 
 	<dependencies>
-		<!-- 数据库连接 驱动-->
+		<!-- 数据库连接 驱动 -->
 		<dependency>
 			<groupId>${jdbc.groupId}</groupId>
 			<artifactId>${jdbc.artifactId}</artifactId>
 			<version>${jdbc.version}</version>
 		</dependency>
-		<!-- 数据库连接 驱动 end-->
-		
+		<!-- 数据库连接 驱动 end -->
+
+		<!-- c3p0 数据库连接池 -->
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.1.2</version>
+		</dependency>
+		<!-- c3p0 数据库连接池 end-->
+
 		<!-- commons 组件 -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
@@ -68,23 +76,23 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 		<!-- log4j,slf4j 日志组件 end -->
-		
+
 		<!-- jackson 处理JSON的组件 -->
 		<dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-jaxrs</artifactId>
-            <version>1.7.1</version>
-        </dependency>
-        <!-- jackson 处理JSON的组件 end-->
-        
-		<!-- 其他 组件-->
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-jaxrs</artifactId>
+			<version>1.7.1</version>
+		</dependency>
+		<!-- jackson 处理JSON的组件 end -->
+
+		<!-- 其他 组件 -->
 		<dependency>
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
 			<version>3.12.1.GA</version>
 		</dependency>
 		<!-- 其他 end -->
-		
+
 		<!-- 下面开始是框架的dependency -->
 		<!-- spring 框架 -->
 		<dependency>
@@ -116,38 +124,33 @@
 
 		<!-- hiberante 框架 -->
 		<dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-search</artifactId>
-            <version>${hibernate.search.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>hibernate-core</artifactId>
-                    <groupId>org.hibernate</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-search-analyzers</artifactId>
-            <version>${hibernate.search.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-ehcache</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-        <!--      
-        <dependency>
-            <groupId>org.hibernate.java-persistence</groupId>
-            <artifactId>jpa-api</artifactId>
-            <version>${jpa.version}</version>
-        </dependency>
-         -->
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search</artifactId>
+			<version>${hibernate.search.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>hibernate-core</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-analyzers</artifactId>
+			<version>${hibernate.search.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<!-- <dependency> <groupId>org.hibernate.java-persistence</groupId> <artifactId>jpa-api</artifactId> 
+			<version>${jpa.version}</version> </dependency> -->
 		<!-- hiberante 框架 end -->
 
 		<!-- AspectJ 面向切面框架 -->
@@ -162,6 +165,9 @@
 			<version>${aspectj.version}</version>
 		</dependency>
 		<!-- AspectJ 面向切面框架 end -->
-		
+
 	</dependencies>
+
+	<properties>
+	</properties>
 </project>
