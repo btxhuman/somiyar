@@ -13,6 +13,10 @@
             <result>/index.jsp</result>
         </action>
 
+        <action name="toAdmin" class="com.neaghfoz.webapp.action.User">
+            <result>/WEB-INF/admin/login.jsp</result>
+        </action>
+
     </package>
 
 </struts>
