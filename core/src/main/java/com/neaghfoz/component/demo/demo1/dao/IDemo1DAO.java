@@ -11,5 +11,5 @@ import com.neaghfoz.component.demo.demo1.model.Demo1PO;
  */
 public interface IDemo1DAO {
 
-    public void showDemo1(Demo1PO demo1);
+    public void addDemo1(Demo1PO demo1);
 }

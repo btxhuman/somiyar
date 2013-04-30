@@ -122,6 +122,11 @@
 
 		<!-- 下面开始是框架的dependency -->
 		<!-- spring 框架 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
@@ -147,11 +152,11 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		<dependency>
+<!--		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
 			<version>3.0</version>
-		</dependency>
+		</dependency>-->
 		<!-- spring 框架 end -->
 
 		<!-- hiberante 框架 -->

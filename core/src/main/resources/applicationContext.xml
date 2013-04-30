@@ -14,6 +14,8 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd"
 	default-lazy-init="true">
 
+
+
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
@@ -88,6 +90,27 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+
+    <!-- 添加spring xml 的配置文件 -->
+    <!-- <import resource="classpath:cn/com/do1/dqdp/core/**/*-spring.xml"/> -->
+    <!-- <import resource="classpath:cn/com/do1/common/**/*-spring.xml"/> -->
+    <!-- <import resource="classpath:applicationContext-dao.xml" /> -->
+    <!-- <import resource="classpath:applicationContext-service.xml" /> -->
+    <import resource="classpath:com/neaghfoz/component/demo/spring.xml" />
+
+    <!-- Enable @Transactional support -->
+    <tx:annotation-driven/>
+
+    <!-- Enable @AspectJ support -->
+    <aop:aspectj-autoproxy/>
+
+    <!-- Activates scanning of @Autowired -->
+    <context:annotation-config />
+
+    <aop:config >
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neaghfoz.component..service..*.*(..))" />
+    </aop:config>
+
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="save*" propagation="REQUIRED"/>
@@ -98,23 +121,14 @@
         </tx:attributes>
     </tx:advice>
 
-    <aop:config proxy-target-class="true">
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neaghfoz.component..service..*.*(..))" />
-    </aop:config>
-    <!-- Activates scanning of @Autowired -->
-	<context:annotation-config />
+
+
+
 
 	<!-- Activates scanning of @Repository and @Service -->
 	<!-- <context:component-scan base-package="com.neaghfoz"/> -->
 
-
 	<!-- Add new DAOs here -->
 	<!-- Add new Managers here -->
 
-	<!-- 添加spring xml 的配置文件 -->
-	<!-- <import resource="classpath:cn/com/do1/dqdp/core/**/*-spring.xml"/> -->
-	<!-- <import resource="classpath:cn/com/do1/common/**/*-spring.xml"/> -->
-	<!-- <import resource="classpath:applicationContext-dao.xml" /> -->
-	<!-- <import resource="classpath:applicationContext-service.xml" /> -->
-	<import resource="classpath:com/neaghfoz/component/demo/spring.xml" />
 </beans>

@@ -19,7 +19,7 @@ public class Demo1DAOImpl implements IDemo1DAO{
     private SessionFactory sessionFactory;
 
     @Override
-    public void showDemo1(Demo1PO demo1PO) {
+    public void addDemo1(Demo1PO demo1PO) {
         //To change body of implemented methods use File | Settings | File Templates.
         sessionFactory.getCurrentSession().save(demo1PO);
     }

@@ -13,15 +13,15 @@ public class Demo1Service implements IDemo1Service {
 
 	private static final Logger log  = LoggerFactory.getLogger(Demo1Service.class);
 	
-//	@Resource
-//	private IDemo1DAO demo1DAO;
+	@Resource
+	private IDemo1DAO demo1DAO;
 	
 	@Override
 	public void saveDemo1() {
 		log.debug("测试日志");
         Demo1PO demo1PO = new Demo1PO();
         demo1PO.setName("hello world");
-//        demo1DAO.showDemo1(demo1PO);
+        demo1DAO.addDemo1(demo1PO);
 	}
 
 }
