@@ -88,7 +88,7 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-  <!--  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="save*" propagation="REQUIRED"/>
             <tx:method name="add*" propagation="REQUIRED"/>
@@ -100,7 +100,7 @@
 
     <aop:config proxy-target-class="true">
         <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neaghfoz.component..service..*.*(..))" />
-    </aop:config>-->
+    </aop:config>
     <!-- Activates scanning of @Autowired -->
 	<context:annotation-config />
 
