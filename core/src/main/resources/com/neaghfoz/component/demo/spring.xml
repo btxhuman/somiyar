@@ -9,4 +9,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 <!--         <import resource="classpath:cn/com/do1/component/acountmgr/**/conf/*-spring.xml" /> -->
 	<bean id="demo1Service" class="com.neaghfoz.component.demo.demo1.service.impl.Demo1Service"/>
+<!--
+    <bean id="demo1DAO" class="com.neaghfoz.component.demo.demo1.dao.impl.Demo1DAOImpl"/>
+-->
 </beans>

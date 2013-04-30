@@ -11,7 +11,7 @@
 	  <param name="DatePattern" value="'.'yyyy-MM-dd" />
 	  
 	  
-	  <param name="File" value="D:/logs/somiyar/log4j.log" /><!-- 设置File参数：日志输出文件名 --> 
+	  <param name="File" value="log_somiyar/log4j.log" /><!-- 设置File参数：日志输出文件名 -->
 	  <param name="Append" value="true" /><!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 --> 
 	  <layout class="org.apache.log4j.PatternLayout"> 
 			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %m%n" />
