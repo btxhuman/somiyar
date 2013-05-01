@@ -7,6 +7,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.neaghfoz.component.demo.demo1.service.IDemo1Service;
 
+import java.sql.SQLException;
+
 public class TestDemo1Service {
 
     private static ApplicationContext appContext;
@@ -19,7 +21,7 @@ public class TestDemo1Service {
     }
 
     @Test
-    public void testSaveDemo1() {
+    public void testSaveDemo1() throws SQLException{
         demo1Service.saveDemo1();
     }
 

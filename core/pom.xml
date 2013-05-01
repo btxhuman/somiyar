@@ -152,11 +152,7 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-<!--		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>3.0</version>
-		</dependency>-->
+
 		<!-- spring 框架 end -->
 
 		<!-- hiberante 框架 -->
@@ -191,6 +187,11 @@
 			<artifactId>jpa-api</artifactId>
 			<version>${jpa.version}</version>
 		</dependency>
+<!--        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-tools</artifactId>
+            <version>${hibernate.tools.version}</version>
+        </dependency>-->
 		<!-- hiberante 框架 end -->
 
 		<!-- AspectJ 面向切面框架 -->
