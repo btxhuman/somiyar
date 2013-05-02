@@ -19,9 +19,9 @@
           destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="jdbcUrl"
-                  value="jdbc:mysql://50.116.9.124/developer?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true"/>
-        <property name="user" value="developer"/>
-        <property name="password" value="AFDBya889zfH8y3f"/>
+                  value="jdbc:mysql://192.168.1.111/developer?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true"/>
+        <property name="user" value="root"/>
+        <property name="password" value="root"/>
         <!--连接池中保留的最小连接数。 -->
         <property name="minPoolSize" value="5"/>
         <!--连接池中保留的最大连接数。Default: 15 -->
@@ -38,7 +38,7 @@
         <!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
         <property name="idleConnectionTestPeriod" value="60"/>
         <!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
-        <property name="acquireRetryAttempts" value="1"/>
+        <property name="acquireRetryAttempts" value="30"/>
         <!--获取连接失败将会引起所有等待连接池来获取连接 的线程抛出异常。但是数据源仍有效 保留，并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试
             获取连接失败后该数据源将申明已断开并永久关闭。Default: false -->
         <property name="breakAfterAcquireFailure" value="false"/>
@@ -48,7 +48,7 @@
         <!--maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。Default: 0 -->
         <property name="maxStatementsPerConnection" value="3"/>
         <!--c3p0是异步操作的，缓慢的JDBC操作通过帮助进程完成。扩展这些操作可以有效的提升性能 通过多线程实现多个操作同时被执行。Default:3 -->
-        <property name="numHelperThreads" value="1"/>
+        <property name="numHelperThreads" value="3"/>
     </bean>
 
 
@@ -92,23 +92,19 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-
-    <!-- 添加spring xml 的配置文件 -->
-    <!-- <import resource="classpath:cn/com/do1/dqdp/core/**/*-spring.xml"/> -->
-    <!-- <import resource="classpath:cn/com/do1/common/**/*-spring.xml"/> -->
-    <!-- <import resource="classpath:applicationContext-dao.xml" /> -->
-    <!-- <import resource="classpath:applicationContext-service.xml" /> -->
-    <import resource="classpath:com/neaghfoz/component/demo/spring.xml"/>
-
-    <!-- Enable @Transactional support -->
-    <!--<tx:annotation-driven/>-->
+    <!-- Enable @Transactional support  这个注解需要在service层某个方法手动来进行事务的配置-->
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
 
     <!-- Enable @AspectJ support -->
-    <aop:aspectj-autoproxy/>
+   <!-- <aop:aspectj-autoproxy/>-->
 
     <!-- Activates scanning of @Autowired -->
     <context:annotation-config/>
 
+    <!--
+        关闭的配置文件的事务管理aop:config 可以通过注解 @Transactional 来控制事务
+        execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern) throws-pattern?)
+    -->
     <aop:config>
         <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neaghfoz.component..service..*.*(..))"/>
     </aop:config>
@@ -133,4 +129,10 @@
     <!-- Add new DAOs here -->
     <!-- Add new Managers here -->
 
+    <!-- 添加spring xml 的配置文件 -->
+    <!-- <import resource="classpath:cn/com/do1/dqdp/core/**/*-spring.xml"/> -->
+    <!-- <import resource="classpath:cn/com/do1/common/**/*-spring.xml"/> -->
+    <!-- <import resource="classpath:applicationContext-dao.xml" /> -->
+    <!-- <import resource="classpath:applicationContext-service.xml" /> -->
+    <import resource="classpath:com/neaghfoz/component/demo/spring.xml"/>
 </beans>
