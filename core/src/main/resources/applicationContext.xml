@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:tx="http://www.springframework.org/schema/tx"
-   	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
@@ -12,50 +12,51 @@
         http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd"
-	default-lazy-init="true">
+       default-lazy-init="true">
 
 
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl"
+                  value="jdbc:mysql://192.168.1.111/developer?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true"/>
+        <property name="user" value="root"/>
+        <property name="password" value="root"/>
+        <!--连接池中保留的最小连接数。 -->
+        <property name="minPoolSize" value="5"/>
+        <!--连接池中保留的最大连接数。Default: 15 -->
+        <property name="maxPoolSize" value="30"/>
+        <!--初始化时获取的连接数，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
+        <property name="initialPoolSize" value="10"/>
+        <!--最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+        <property name="maxIdleTime" value="60"/>
+        <!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+        <property name="acquireIncrement" value="5"/>
+        <!--JDBC的标准参数，用以控制数据源内加载的PreparedStatements数量。但由于预缓存的statements 属于单个connection而不是整个连接池。所以设置这个参数需要考虑到多方面的因素。
+            如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0 -->
+        <property name="maxStatements" value="0"/>
+        <!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
+        <property name="idleConnectionTestPeriod" value="60"/>
+        <!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+        <property name="acquireRetryAttempts" value="30"/>
+        <!--获取连接失败将会引起所有等待连接池来获取连接 的线程抛出异常。但是数据源仍有效 保留，并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试
+            获取连接失败后该数据源将申明已断开并永久关闭。Default: false -->
+        <property name="breakAfterAcquireFailure" value="false"/>
+        <!--因性能消耗大请只在需要的时候使用它。如果设为true那么在每个connection提交的 时候都将校验其有效性。建议使用idleConnectionTestPeriod或automaticTestTable
+            等方法来提升连接测试的性能。Default: false -->
+        <property name="testConnectionOnCheckout" value="false"/>
+        <!--maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。Default: 0 -->
+        <property name="maxStatementsPerConnection" value="3"/>
+        <!--c3p0是异步操作的，缓慢的JDBC操作通过帮助进程完成。扩展这些操作可以有效的提升性能 通过多线程实现多个操作同时被执行。Default:3 -->
+        <property name="numHelperThreads" value="3"/>
+    </bean>
 
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close">
-		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://50.116.9.124/developer?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true" />
-		<property name="user" value="developer" />
-		<property name="password" value="AFDBya889zfH8y3f" />
-		<!--连接池中保留的最小连接数。 -->
-		<property name="minPoolSize" value="5" />
-		<!--连接池中保留的最大连接数。Default: 15 -->
-		<property name="maxPoolSize" value="30" />
-		<!--初始化时获取的连接数，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
-		<property name="initialPoolSize" value="10" />
-		<!--最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
-		<property name="maxIdleTime" value="60" />
-		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
-		<property name="acquireIncrement" value="5" />
-		<!--JDBC的标准参数，用以控制数据源内加载的PreparedStatements数量。但由于预缓存的statements 属于单个connection而不是整个连接池。所以设置这个参数需要考虑到多方面的因素。 
-			如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0 -->
-		<property name="maxStatements" value="0" />
-		<!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
-		<property name="idleConnectionTestPeriod" value="60" />
-		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
-		<property name="acquireRetryAttempts" value="1" />
-		<!--获取连接失败将会引起所有等待连接池来获取连接 的线程抛出异常。但是数据源仍有效 保留，并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试 
-			获取连接失败后该数据源将申明已断开并永久关闭。Default: false -->
-		<property name="breakAfterAcquireFailure" value="false" />
-		<!--因性能消耗大请只在需要的时候使用它。如果设为true那么在每个connection提交的 时候都将校验其有效性。建议使用idleConnectionTestPeriod或automaticTestTable 
-			等方法来提升连接测试的性能。Default: false -->
-		<property name="testConnectionOnCheckout" value="false" />
-		<!--maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。Default: 0 -->
-		<property name="maxStatementsPerConnection" value="3" />
-		<!--c3p0是异步操作的，缓慢的JDBC操作通过帮助进程完成。扩展这些操作可以有效的提升性能 通过多线程实现多个操作同时被执行。Default:3 -->
-		<property name="numHelperThreads" value="1" />
-	</bean>
 
-
-	<!-- Hibernate SessionFactory -->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" destroy-method="destroy">
+    <!-- Hibernate SessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+          destroy-method="destroy">
         <property name="dataSource" ref="dataSource"/>
-<!--         <property name="configLocation" value="classpath:hibernate.cfg.xml"/> -->
+        <!--         <property name="configLocation" value="classpath:hibernate.cfg.xml"/> -->
         <property name="mappingResources">
             <list>
                 <value>com/neaghfoz/component/demo/Demo1.hbm.xml</value>
@@ -66,19 +67,20 @@
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
-                <prop key="hbm2ddl.auto">create</prop>
+                <!--配置这个属性是用来自动建表-->
+                <!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
                 <prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
                 <prop key="hibernate.cache.use_second_level_cache">true</prop>
                 <!-- Disable the second-level cache  -->
                 <prop key="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>
                 <!--<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>-->
                 <!-- Hibernate Search index directory -->
-<!--                <prop key="hibernate.search.default.indexBase">target/index</prop>
-                <prop key="hibernate.search.default.directory_provider" >filesystem</prop>
-                <prop key="hibernate.search.default.locking_strategy">simple</prop>
-                <prop key="hibernate.search.default.exclusive_index_use">true</prop>
-                <prop key="hibernate.search.lucene_version">LUCENE_35</prop>
-                <prop key="hibernate.search.worker.batch_size">100</prop>-->
+                <!--                <prop key="hibernate.search.default.indexBase">target/index</prop>
+                                <prop key="hibernate.search.default.directory_provider" >filesystem</prop>
+                                <prop key="hibernate.search.default.locking_strategy">simple</prop>
+                                <prop key="hibernate.search.default.exclusive_index_use">true</prop>
+                                <prop key="hibernate.search.lucene_version">LUCENE_35</prop>
+                                <prop key="hibernate.search.worker.batch_size">100</prop>-->
             </props>
             <!-- Turn batching off for better error messages under PostgreSQL -->
             <!-- hibernate.jdbc.batch_size=0 -->
@@ -90,45 +92,47 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+    <!-- Enable @Transactional support  这个注解需要在service层某个方法手动来进行事务的配置-->
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+
+    <!-- Enable @AspectJ support -->
+   <!-- <aop:aspectj-autoproxy/>-->
+
+    <!-- Activates scanning of @Autowired -->
+    <context:annotation-config/>
+
+    <!--
+        关闭的配置文件的事务管理aop:config 可以通过注解 @Transactional 来控制事务
+        execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern) throws-pattern?)
+    -->
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neaghfoz.component..service..*.*(..))"/>
+    </aop:config>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 设置事务的传播性 以及回滚的异常-->
+            <tx:method name="save*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="add*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="create*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="insert*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="modify*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+
+    <!-- Activates scanning of @Repository and @Service -->
+    <!-- <context:component-scan base-package="com.neaghfoz"/> -->
+
+    <!-- Add new DAOs here -->
+    <!-- Add new Managers here -->
 
     <!-- 添加spring xml 的配置文件 -->
     <!-- <import resource="classpath:cn/com/do1/dqdp/core/**/*-spring.xml"/> -->
     <!-- <import resource="classpath:cn/com/do1/common/**/*-spring.xml"/> -->
     <!-- <import resource="classpath:applicationContext-dao.xml" /> -->
     <!-- <import resource="classpath:applicationContext-service.xml" /> -->
-    <import resource="classpath:com/neaghfoz/component/demo/spring.xml" />
-
-    <!-- Enable @Transactional support -->
-    <tx:annotation-driven/>
-
-    <!-- Enable @AspectJ support -->
-    <aop:aspectj-autoproxy/>
-
-    <!-- Activates scanning of @Autowired -->
-    <context:annotation-config />
-
-    <aop:config >
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neaghfoz.component..service..*.*(..))" />
-    </aop:config>
-
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="save*" propagation="REQUIRED"/>
-            <tx:method name="add*" propagation="REQUIRED"/>
-            <tx:method name="create*" propagation="REQUIRED"/>
-            <tx:method name="insert*" propagation="REQUIRED"/>
-            <tx:method name="*" read-only="true" />
-        </tx:attributes>
-    </tx:advice>
-
-
-
-
-
-	<!-- Activates scanning of @Repository and @Service -->
-	<!-- <context:component-scan base-package="com.neaghfoz"/> -->
-
-	<!-- Add new DAOs here -->
-	<!-- Add new Managers here -->
-
+    <import resource="classpath:com/neaghfoz/component/demo/spring.xml"/>
 </beans>

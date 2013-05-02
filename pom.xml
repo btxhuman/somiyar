@@ -44,6 +44,12 @@
             <email>btxhuman@gmail.com</email>
             <timezone>UTC+8</timezone>
         </developer>
+	  <developer>
+            <id>3</id>
+            <name>Changchao Huang</name>
+            <email>goodhchch@gmail.com</email>
+            <timezone>UTC+8</timezone>
+        </developer>
     </developers>
     <dependencies>
         <dependency>
