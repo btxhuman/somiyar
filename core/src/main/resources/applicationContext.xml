@@ -19,9 +19,9 @@
           destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="jdbcUrl"
-                  value="jdbc:mysql://192.168.1.111/developer?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true"/>
-        <property name="user" value="root"/>
-        <property name="password" value="root"/>
+                  value="jdbc:mysql://74.207.252.121/somiyar?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true"/>
+        <property name="user" value="somiyar_root"/>
+        <property name="password" value="somiyar888"/>
         <!--连接池中保留的最小连接数。 -->
         <property name="minPoolSize" value="5"/>
         <!--连接池中保留的最大连接数。Default: 15 -->
@@ -68,7 +68,7 @@
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <!--配置这个属性是用来自动建表-->
-                <!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
+<!--                 <prop key="hibernate.hbm2ddl.auto">create</prop> -->
                 <prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
                 <prop key="hibernate.cache.use_second_level_cache">true</prop>
                 <!-- Disable the second-level cache  -->

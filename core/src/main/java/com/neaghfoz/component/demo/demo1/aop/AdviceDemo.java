@@ -16,21 +16,20 @@ public class AdviceDemo {
 
 
     public void beforeTx(JoinPoint jp){
-        System.out.println("切面处理：before start");
-        System.out.println("切面对象target:" + jp.getTarget());
-        System.out.println("切面对象method:" + jp.getSignature().getName());
-        System.out.println("切面对象的方法参数:" + Arrays.toString(jp.getArgs()));
-        System.out.println("切面处理：before end");
+        System.out.println("------切面处理：before start");
+        System.out.println("------切面对象target:" + jp.getTarget());
+        System.out.println("------切面对象method:" + jp.getSignature().getName());
+        System.out.println("------切面对象的方法参数:" + Arrays.toString(jp.getArgs()));
+        System.out.println("------切面处理：before end");
     }
 
-    public Object ArroundTx(ProceedingJoinPoint jp){
-        System.out.print("");
-        return null;
-    }
+//    public Object ArroundTx(ProceedingJoinPoint jp){
+//        return null;
+//    }
 
     public void afterTx(JoinPoint jp){
-        System.out.println("切面处理：after start");
-        System.out.println("切面处理：after end");
+        System.out.println("******切面处理：after start");
+        System.out.println("******切面处理：after end");
     }
 
 }
