@@ -12,4 +12,8 @@ import com.neaghfoz.component.demo.demo1.model.Demo1PO;
 public interface IDemo1DAO {
 
     public void addDemo1(Demo1PO demo1);
+    
+    public void updateDemo1(Demo1PO demo1po);
+    
+    public Demo1PO getDemo1po(String id);
 }

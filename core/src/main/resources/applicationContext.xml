@@ -19,9 +19,9 @@
           destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="jdbcUrl"
-                  value="jdbc:mysql://74.207.252.121/somiyar?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true"/>
-        <property name="user" value="somiyar_root"/>
-        <property name="password" value="somiyar888"/>
+                  value="jdbc:mysql://127.0.0.1/somiyar?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true"/>
+        <property name="user" value="root"/> <!-- 74.207.252.121  somiyar_root somiyar888-->
+        <property name="password" value="root"/>
         <!--连接池中保留的最小连接数。 -->
         <property name="minPoolSize" value="5"/>
         <!--连接池中保留的最大连接数。Default: 15 -->
@@ -93,7 +93,7 @@
     </bean>
 
     <!-- Enable @Transactional support  这个注解需要在service层某个方法手动来进行事务的配置-->
-    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!-- Enable @AspectJ support -->
    <!-- <aop:aspectj-autoproxy/>-->
@@ -106,19 +106,22 @@
         execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern) throws-pattern?)
     -->
     <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neaghfoz.component..service..*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neaghfoz.component..service..*.*(..))" order="0"/>
     </aop:config>
 
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <!-- 设置事务的传播性 以及回滚的异常-->
+            <!-- 设置事务的传播性 以及回滚的异常 read-only为true时候,
+            	方法不会向数据库进行写操作(即使调用了hibernate中 session.save()方法)-->
             <tx:method name="save*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="add*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="create*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="insert*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="update*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="modify*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
-            <tx:method name="*" read-only="true"/>
+            <tx:method name="get*" read-only="true" />
+			<tx:method name="search*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
         </tx:attributes>
     </tx:advice>
 
