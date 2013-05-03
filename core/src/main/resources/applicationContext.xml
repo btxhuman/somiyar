@@ -73,6 +73,10 @@
                 <prop key="hibernate.cache.use_second_level_cache">true</prop>
                 <!-- Disable the second-level cache  -->
                 <prop key="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://74.207.252.121</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+                <prop key="hibernate.connection.username">somiyar_root</prop>
+                <prop key="hibernate.connection.password">somiyar888</prop>
                 <!--<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>-->
                 <!-- Hibernate Search index directory -->
                 <!--                <prop key="hibernate.search.default.indexBase">target/index</prop>
