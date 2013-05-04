@@ -21,7 +21,7 @@ public class User {
     private String email; //邮箱
     private Integer status; //用户状态
     private Date createTime; //创建时间
-    private Set<Role>  roles;
+    private Set<Role> roleSet;
 
 
     public String getUserName() {
@@ -80,18 +80,20 @@ public class User {
         this.createTime = createTime;
     }
 
+    public Set<Role> getRoleSet() {
+        return roleSet;
+    }
+
+    public void setRoleSet(Set<Role> roleSet) {
+        this.roleSet = roleSet;
+    }
+
     public String getUserId() {
 
         return userId;
+
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 
     public void setUserId(String userId) {
         this.userId = userId;

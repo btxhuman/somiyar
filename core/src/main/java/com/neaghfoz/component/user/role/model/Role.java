@@ -1,5 +1,6 @@
 package com.neaghfoz.component.user.role.model;
 
+import com.neaghfoz.component.user.permission.model.Permission;
 import com.neaghfoz.component.user.user.model.User;
 
 import java.util.Set;
@@ -14,7 +15,16 @@ import java.util.Set;
 public class Role {
     private String roleId;
     private String roleName;
-    private Set<User> users;
+    private Set<User> userSet;
+    private Set<Permission> permissionSet;
+
+    public Role(){
+        super();
+    }
+
+    public Role(String roleId){
+        this.roleId = roleId;
+    }
 
     public String getRoleId() {
         return roleId;
@@ -32,11 +42,19 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<User> getUserSet() {
+        return userSet;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUserSet(Set<User> userSet) {
+        this.userSet = userSet;
+    }
+
+    public Set<Permission> getPermissionSet() {
+        return permissionSet;
+    }
+
+    public void setPermissionSet(Set<Permission> permissionSet) {
+        this.permissionSet = permissionSet;
     }
 }

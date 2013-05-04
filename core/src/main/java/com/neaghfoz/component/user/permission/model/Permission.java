@@ -1,5 +1,9 @@
 package com.neaghfoz.component.user.permission.model;
 
+import com.neaghfoz.component.user.role.model.Role;
+
+import java.util.Set;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhong
@@ -13,7 +17,9 @@ public class Permission {
     private String module; //模块
     private String childModule; //子模块
     private String permissionCode; //权限码 唯一
-    private String desc; //描述
+    private String permissionDesc; //描述
+    private Set<Role> roleSet;
+
 
     public String getPermissionId() {
         return permissionId;
@@ -47,11 +53,19 @@ public class Permission {
         this.permissionCode = permissionCode;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getPermissionDesc() {
+        return permissionDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setPermissionDesc(String permissionDesc) {
+        this.permissionDesc = permissionDesc;
+    }
+
+    public Set<Role> getRoleSet() {
+        return roleSet;
+    }
+
+    public void setRoleSet(Set<Role> roleSet) {
+        this.roleSet = roleSet;
     }
 }

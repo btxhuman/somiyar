@@ -130,6 +130,8 @@
             <tx:method name="insert*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="update*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="modify*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="del*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="remove*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="get*" read-only="true"/>
             <tx:method name="search*" read-only="true"/>
             <tx:method name="find*" read-only="true"/>
@@ -144,4 +146,5 @@
     <!-- <import resource="classpath:cn/com/do1/dqdp/core/**/*-spring.xml"/> -->
     <!-- <import resource="classpath:cn/com/do1/common/**/*-spring.xml"/> -->
     <import resource="classpath:com/neaghfoz/component/demo/spring.xml"/>
+    <import resource="classpath:com/neaghfoz/component/user/spring.xml"/>
 </beans>

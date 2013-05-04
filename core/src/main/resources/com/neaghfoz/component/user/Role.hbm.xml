@@ -8,9 +8,16 @@
             <generator class="uuid"/>
         </id>
         <property name="roleName" column="role_name" type="string"/>
-        <set name="users" table="tb_user_role_link">
+
+        <set name="userSet" table="tb_user_role_link" inverse="false" >
             <key column="role_id"/>
             <many-to-many class="com.neaghfoz.component.user.user.model.User" column="user_id"/>
+        </set>
+
+        <!-- tb_role_per_link 这张表是由 tb_role(model:Role) 来进行维护 -->
+        <set name="permissionSet" table="tb_role_per_link" inverse="false">
+            <key column="role_id"/>
+            <many-to-many class="com.neaghfoz.component.user.permission.model.Permission" column="permission_id"/>
         </set>
     </class>
 

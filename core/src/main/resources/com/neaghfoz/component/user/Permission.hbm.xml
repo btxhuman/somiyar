@@ -3,14 +3,18 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.neaghfoz.component.user.permission.model">
-    <class name="Permission" table="tb_permission">
+    <class name="Permission" table="tb_permission" >
         <id name="permissionId" column="permission_id" type="string">
             <generator class="uuid"/>
         </id>
         <property name="module" column="module" type="string"/>
         <property name="childModule" column="child_module" type="string"/>
         <property name="permissionCode" column="permission_code" type="string" unique="true"/>
-        <property name="desc" column="desc" type="string"/>
+        <property name="permissionDesc" column="permission_desc" type="string"/>
+        <set name="roleSet" table="tb_role_per_link" inverse="true" cascade="delete">
+            <key column="permission_id"/>
+            <many-to-many class="com.neaghfoz.component.user.role.model.Role" column="role_id"/>
+        </set>
     </class>
 
 </hibernate-mapping>
