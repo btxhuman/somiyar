@@ -14,14 +14,22 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd"
        default-lazy-init="true">
 
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
-        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-        <property name="jdbcUrl"
-                  value="jdbc:mysql://127.0.0.1/somiyar?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true"/>
-        <property name="user" value="root"/> <!-- 74.207.252.121  somiyar_root somiyar888-->
-        <property name="password" value="root"/>
+        <property name="driverClass" value="${jdbc.driverClassName}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
         <!--连接池中保留的最小连接数。 -->
         <property name="minPoolSize" value="5"/>
         <!--连接池中保留的最大连接数。Default: 15 -->
@@ -60,23 +68,22 @@
         <property name="mappingResources">
             <list>
                 <value>com/neaghfoz/component/demo/Demo1.hbm.xml</value>
+                <value>com/neaghfoz/component/user/User.hbm.xml</value>
+                <value>com/neaghfoz/component/user/Role.hbm.xml</value>
+                <value>com/neaghfoz/component/user/Permission.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <!--配置这个属性是用来自动建表-->
-<!--                 <prop key="hibernate.hbm2ddl.auto">create</prop> -->
+                <!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
                 <prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
                 <prop key="hibernate.cache.use_second_level_cache">true</prop>
                 <!-- Disable the second-level cache  -->
                 <prop key="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>
-                <prop key="hibernate.connection.url">jdbc:mysql://74.207.252.121</prop>
-                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
-                <prop key="hibernate.connection.username">somiyar_root</prop>
-                <prop key="hibernate.connection.password">somiyar888</prop>
                 <!--<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>-->
                 <!-- Hibernate Search index directory -->
                 <!--                <prop key="hibernate.search.default.indexBase">target/index</prop>
@@ -100,7 +107,7 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!-- Enable @AspectJ support -->
-   <!-- <aop:aspectj-autoproxy/>-->
+    <!-- <aop:aspectj-autoproxy/>-->
 
     <!-- Activates scanning of @Autowired -->
     <context:annotation-config/>
@@ -123,9 +130,9 @@
             <tx:method name="insert*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="update*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="modify*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
-            <tx:method name="get*" read-only="true" />
-			<tx:method name="search*" read-only="true" />
-			<tx:method name="find*" read-only="true" />
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="search*" read-only="true"/>
+            <tx:method name="find*" read-only="true"/>
         </tx:attributes>
     </tx:advice>
 
@@ -133,13 +140,8 @@
     <!-- Activates scanning of @Repository and @Service -->
     <!-- <context:component-scan base-package="com.neaghfoz"/> -->
 
-    <!-- Add new DAOs here -->
-    <!-- Add new Managers here -->
-
     <!-- 添加spring xml 的配置文件 -->
     <!-- <import resource="classpath:cn/com/do1/dqdp/core/**/*-spring.xml"/> -->
     <!-- <import resource="classpath:cn/com/do1/common/**/*-spring.xml"/> -->
-    <!-- <import resource="classpath:applicationContext-dao.xml" /> -->
-    <!-- <import resource="classpath:applicationContext-service.xml" /> -->
     <import resource="classpath:com/neaghfoz/component/demo/spring.xml"/>
 </beans>
