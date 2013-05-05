@@ -13,8 +13,8 @@
             <result>/index.jsp</result>
         </action>
 
-        <action name="toAdmin" class="com.neaghfoz.webapp.action.User">
-            <result>/WEB-INF/admin/login.jsp</result>
+        <action name="admin_index" class="com.neaghfoz.webapp.action.UserAction">
+            <result>/WEB-INF/admin/index.jsp</result>
         </action>
 
     </package>
