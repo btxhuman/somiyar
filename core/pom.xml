@@ -209,6 +209,12 @@
         </dependency>
         <!-- AspectJ 面向切面框架 end -->
 
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+
     </dependencies>
 
     <properties>
