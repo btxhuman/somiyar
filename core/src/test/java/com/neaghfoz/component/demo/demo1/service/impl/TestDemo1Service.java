@@ -25,7 +25,7 @@ public class TestDemo1Service {
     public void testSaveDemo1() throws SQLException{
     	Demo1PO demo1po = new Demo1PO();
     	demo1po.setName("yeah");
-        demo1Service.saveDemo1(demo1po);
+        demo1Service.saveObj(demo1po);
     }
 
     @Test

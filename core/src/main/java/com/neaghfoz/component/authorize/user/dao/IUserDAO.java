@@ -11,5 +11,4 @@ import com.neaghfoz.framework.hibernate.IBaseDAO;
  * To change this template use File | Settings | File Templates.
  */
 public interface IUserDAO extends IBaseDAO<User>{
-
 }

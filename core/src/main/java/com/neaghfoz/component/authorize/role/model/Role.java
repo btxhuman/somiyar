@@ -3,6 +3,7 @@ package com.neaghfoz.component.authorize.role.model;
 import com.neaghfoz.component.authorize.permission.model.Permission;
 import com.neaghfoz.component.authorize.user.model.User;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Set;
  * Time: 上午9:30
  * To change this template use File | Settings | File Templates.
  */
-public class Role {
+public class Role implements Serializable{
     private String roleId;
     private String roleName;
     private Set<User> userSet;

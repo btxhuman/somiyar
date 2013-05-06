@@ -40,18 +40,18 @@
         <property name="maxIdleTime" value="60"/>
         <!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
         <property name="acquireIncrement" value="5"/>
-        <!--JDBC的标准参数，用以控制数据源内加载的PreparedStatements数量。但由于预缓存的statements 属于单个connection而不是整个连接池。所以设置这个参数需要考虑到多方面的因素。
-            如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0 -->
+        <!--JDBC的标准参数，用以控制数据源内加载的PreparedStatements数量。但由于预缓存的statements 属于单个connection而不是整个连接池。
+        	所以设置这个参数需要考虑到多方面的因素。如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0 -->
         <property name="maxStatements" value="0"/>
         <!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
         <property name="idleConnectionTestPeriod" value="60"/>
         <!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
         <property name="acquireRetryAttempts" value="30"/>
-        <!--获取连接失败将会引起所有等待连接池来获取连接 的线程抛出异常。但是数据源仍有效 保留，并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试
-            获取连接失败后该数据源将申明已断开并永久关闭。Default: false -->
+        <!--获取连接失败将会引起所有等待连接池来获取连接 的线程抛出异常。但是数据源仍有效 保留，并在下次调用getConnection()的时候继续尝试获取连接。
+        	如果设为true，那么在尝试获取连接失败后该数据源将申明已断开并永久关闭。Default: false -->
         <property name="breakAfterAcquireFailure" value="false"/>
-        <!--因性能消耗大请只在需要的时候使用它。如果设为true那么在每个connection提交的 时候都将校验其有效性。建议使用idleConnectionTestPeriod或automaticTestTable
-            等方法来提升连接测试的性能。Default: false -->
+        <!--因性能消耗大请只在需要的时候使用它。如果设为true那么在每个connection提交的 时候都将校验其有效性。
+        	建议使用idleConnectionTestPeriod或automaticTestTable 等方法来提升连接测试的性能。Default: false -->
         <property name="testConnectionOnCheckout" value="false"/>
         <!--maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。Default: 0 -->
         <property name="maxStatementsPerConnection" value="3"/>
@@ -79,19 +79,24 @@
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <!--配置这个属性是用来自动建表-->
-                <!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
                 <prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
+                <prop key="current_session_context_class">thread</prop>    
                 <prop key="hibernate.cache.use_second_level_cache">true</prop>
+                
                 <!-- Disable the second-level cache  -->
                 <prop key="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>
                 <!--<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>-->
+                
                 <!-- Hibernate Search index directory -->
-                <!--                <prop key="hibernate.search.default.indexBase">target/index</prop>
-                                <prop key="hibernate.search.default.directory_provider" >filesystem</prop>
-                                <prop key="hibernate.search.default.locking_strategy">simple</prop>
-                                <prop key="hibernate.search.default.exclusive_index_use">true</prop>
-                                <prop key="hibernate.search.lucene_version">LUCENE_35</prop>
-                                <prop key="hibernate.search.worker.batch_size">100</prop>-->
+                <!--  
+				<prop key="hibernate.search.default.indexBase">target/index</prop>
+				<prop key="hibernate.search.default.directory_provider">filesystem</prop>
+				<prop key="hibernate.search.default.locking_strategy">simple</prop>
+				<prop key="hibernate.search.default.exclusive_index_use">true</prop>
+				<prop key="hibernate.search.lucene_version">LUCENE_35</prop>
+				<prop key="hibernate.search.worker.batch_size">100</prop>
+				-->
             </props>
             <!-- Turn batching off for better error messages under PostgreSQL -->
             <!-- hibernate.jdbc.batch_size=0 -->
@@ -106,25 +111,38 @@
     <!-- Enable @Transactional support  这个注解需要在service层某个方法手动来进行事务的配置-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 	
-	<!-- Enable @Resource support -->
-	<context:annotation-config/>  
-	
     <!-- Enable @AspectJ support -->
     <!-- <aop:aspectj-autoproxy/> -->
 
-    <!-- Activates scanning of @Autowired -->
-	<!-- <context:annotation-config/> -->
+    <!-- Enable @Resource @Autowired support -->
+	<context:annotation-config/>
 	
 	<!-- Activates scanning of @Repository and @Service -->
     <!-- <context:component-scan base-package="com.neaghfoz"/> -->
     
     <!--
-        关闭的配置文件的事务管理aop:config 可以通过注解 @Transactional 来控制事务
+    	关闭的配置文件的事务管理aop:config 可以通过注解 @Transactional 来控制事务
         execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern) throws-pattern?)
     -->
     <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neaghfoz.component..service..*.*(..))" order="0"/>
+    	<aop:advisor advice-ref="txAdvice_baseService" pointcut="execution(* com.neaghfoz.common.BaseServiceImpl.*(..))" order="0"/>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neaghfoz.component..service..*.*(..))" order="1"/>
     </aop:config>
+    
+    <!-- baseServiceImpl 的事务管理 -->
+    <tx:advice id="txAdvice_baseService" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="add*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="create*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="insert*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="modify*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="del*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="remove*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
+            <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
 
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
@@ -138,9 +156,9 @@
             <tx:method name="modify*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="del*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="remove*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
-            <tx:method name="get*" read-only="true"/>
-            <tx:method name="search*" read-only="true"/>
-            <tx:method name="find*" read-only="true"/>
+            <tx:method name="get*" read-only="true" />
+            <tx:method name="search*" read-only="true" />
+            <tx:method name="find*" read-only="true" />
         </tx:attributes>
     </tx:advice>
 

@@ -12,4 +12,5 @@ public interface IBaseService {
 	public void updateObj(Object entity);
 	
 	public void deleteObj(Object entity);
+	
 }

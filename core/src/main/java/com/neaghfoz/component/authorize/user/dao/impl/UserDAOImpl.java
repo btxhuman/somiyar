@@ -2,7 +2,7 @@ package com.neaghfoz.component.authorize.user.dao.impl;
 
 import com.neaghfoz.component.authorize.user.dao.IUserDAO;
 import com.neaghfoz.component.authorize.user.model.User;
-import com.neaghfoz.framework.hibernate.BaseDAO;
+import com.neaghfoz.framework.hibernate.BaseDAOImpl;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,6 +11,6 @@ import com.neaghfoz.framework.hibernate.BaseDAO;
  * Time: 下午8:12
  * To change this template use File | Settings | File Templates.
  */
-public class UserDAOImpl extends BaseDAO<User> implements IUserDAO {
+public class UserDAOImpl extends BaseDAOImpl<User> implements IUserDAO {
     
 }

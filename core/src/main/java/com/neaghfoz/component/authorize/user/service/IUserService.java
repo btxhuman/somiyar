@@ -1,6 +1,6 @@
 package com.neaghfoz.component.authorize.user.service;
 
-import com.neaghfoz.component.authorize.user.model.User;
+import com.neaghfoz.common.IBaseService;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,7 +9,7 @@ import com.neaghfoz.component.authorize.user.model.User;
  * Time: 下午8:16
  * To change this template use File | Settings | File Templates.
  */
-public interface IUserService {
+public interface IUserService extends IBaseService{
 	 /**
      * 通过Hql查询
      *

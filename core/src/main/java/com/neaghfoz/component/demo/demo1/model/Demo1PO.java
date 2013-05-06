@@ -1,6 +1,8 @@
 package com.neaghfoz.component.demo.demo1.model;
 
-public class Demo1PO {
+import java.io.Serializable;
+
+public class Demo1PO implements Serializable{
     public String demo1Id;
 
 	public String name;

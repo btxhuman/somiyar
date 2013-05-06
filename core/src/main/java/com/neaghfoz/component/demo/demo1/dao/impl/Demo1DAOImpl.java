@@ -2,6 +2,7 @@ package com.neaghfoz.component.demo.demo1.dao.impl;
 
 import com.neaghfoz.component.demo.demo1.dao.IDemo1DAO;
 import com.neaghfoz.component.demo.demo1.model.Demo1PO;
+import com.neaghfoz.framework.hibernate.BaseDAOImpl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,26 +16,10 @@ import javax.annotation.Resource;
  * Time: 下午2:43
  * To change this template use File | Settings | File Templates.
  */
-public class Demo1DAOImpl implements IDemo1DAO{
-
-    @Resource
-    private SessionFactory sessionFactory;
-
-    @Override
-    public void addDemo1(Demo1PO demo1PO) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    	Session session = sessionFactory.getCurrentSession();
-        session.save(demo1PO);
-    }
-    
-    @Override
-    public void updateDemo1(Demo1PO demo1po) {
-    	Session session = sessionFactory.getCurrentSession();
-    	session.update(demo1po);
-    }
+public class Demo1DAOImpl extends BaseDAOImpl<Demo1PO> implements IDemo1DAO{
     
     @Override
     public Demo1PO getDemo1po(String id) {
-    	return (Demo1PO) sessionFactory.getCurrentSession().get(Demo1PO.class, id);
+    	return (Demo1PO) getSession().get(Demo1PO.class, id);
     }
 }

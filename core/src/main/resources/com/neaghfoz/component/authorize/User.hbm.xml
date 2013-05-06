@@ -7,14 +7,14 @@
         <id name="userId" column="user_id">
             <generator class="uuid"/>
         </id>
-        <property name="userName" column="user_name" type="string" unique="true"/>
+        <property name="userName" column="user_name" type="string" unique="true" not-null="true"/>
         <property name="sex" column="sex" type="int"/>
         <property name="nickName" column="nick_name" type="string"/>
         <property name="email" column="email" type="string"/>
         <property name="phone" column="phone" type="string"/>
         <property name="status" column="status" type="int"/>
         <property name="createTime" column="create_time" type="timestamp"/>
-        <property name="password" column="password" type="string"/>
+        <property name="password" column="password" type="string" not-null="true"/>
         
         <set name="roleSet" table="tb_user_role_link" inverse="false">
             <key column="user_id"/>

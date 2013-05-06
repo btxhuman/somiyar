@@ -20,7 +20,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 
 
-public abstract class BaseDAO<T extends Serializable> implements IBaseDAO<T> {
+public abstract class BaseDAOImpl<T extends Serializable> implements IBaseDAO<T> {
 	
 	@Resource
     private SessionFactory sessionFactory;
@@ -37,7 +37,7 @@ public abstract class BaseDAO<T extends Serializable> implements IBaseDAO<T> {
     protected Logger log;
 
     @SuppressWarnings("unchecked")
-    public BaseDAO() {
+    public BaseDAOImpl() {
         className = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         log = Logger.getLogger("sqlLog");
     }

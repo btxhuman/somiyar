@@ -4,7 +4,7 @@ import com.neaghfoz.common.BaseServiceImpl;
 import com.neaghfoz.component.authorize.user.dao.IUserDAO;
 import com.neaghfoz.component.authorize.user.model.User;
 import com.neaghfoz.component.authorize.user.service.IUserService;
-import com.neaghfoz.framework.hibernate.BaseDAO;
+import com.neaghfoz.framework.hibernate.BaseDAOImpl;
 import com.neaghfoz.framework.hibernate.IBaseDAO;
 
 import javax.annotation.Resource;
@@ -21,18 +21,9 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     @Resource
     private IUserDAO userDAO;
     
-    public void setUserDAO(IUserDAO userDAO) {
-		this.userDAO = userDAO;
-	}
-
-	@Override
-	public IBaseDAO getBaseDAO() {
-		return userDAO;
-	}
 
 	@Override
     public Object findWithSql(String sql) {
-		System.out.println(userDAO + "`~```");
         return userDAO.findWithSql(sql);
     }
 
@@ -41,4 +32,19 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     public Object findWithHql(String hql) {
         return userDAO.findWitHql(hql);
     }
+
+	@Override
+	public Object saveObj(Object entity) {
+		// TODO Auto-generated method stub
+		return userDAO.save(entity);
+	}
+
+
+	@Override
+	public IBaseDAO getBaseDAO() {
+		// TODO Auto-generated method stub
+		return userDAO;
+	}
+
+
 }

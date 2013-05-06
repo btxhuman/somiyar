@@ -1,6 +1,11 @@
 package com.neaghfoz.component.authorize.user.service.impl;
 
+import java.util.Date;
+
 import com.neaghfoz.component.authorize.user.dao.IUserDAO;
+import com.neaghfoz.component.authorize.user.enm.SexEnum;
+import com.neaghfoz.component.authorize.user.enm.UserStatusEnum;
+import com.neaghfoz.component.authorize.user.model.User;
 import com.neaghfoz.component.authorize.user.service.IUserService;
 import junit.framework.Assert;
 import org.junit.Test;
@@ -25,6 +30,18 @@ public class TestUserService {
         appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         userService = appContext.getBean("userService", IUserService.class);
     }
+    
+    @Test
+    public void testSaveObj(){
+    	User user = new User();
+    	user.setUserName("bibibi2");
+    	user.setNickName("neaghfoz");
+    	user.setSex(SexEnum.Man.getValue());
+    	user.setStatus(UserStatusEnum.Normal.getValue());
+    	user.setCreateTime(new Date());
+    	user.setPassword("dddd");
+    	userService.saveObj(user);
+    }
 
     @Test
     public void testFindWithHql() {
@@ -35,10 +52,9 @@ public class TestUserService {
 
     @Test
     public void testFindWithSql() {
-    	IUserDAO userDAO = appContext.getBean("userDAO", IUserDAO.class);
-    	System.out.println("userDAO:::::::" + userDAO);
         String sql = "SELECT * FROM tb_user";  //表名大小写敏感
         Object o = userService.findWithSql(sql);
+        
         Assert.assertNotNull(o);
     }
 }
