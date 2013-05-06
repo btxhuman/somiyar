@@ -15,7 +15,7 @@
         <property name="status" column="status" type="int"/>
         <property name="createTime" column="create_time" type="timestamp"/>
         <property name="password" column="password" type="string"/>
-        <!-- tb_user_role_link 这张表是由 tb_user(model:User) 来进行维护 -->
+        
         <set name="roleSet" table="tb_user_role_link" inverse="false">
             <key column="user_id"/>
             <many-to-many class="com.neaghfoz.component.authorize.role.model.Role" column="role_id"/>

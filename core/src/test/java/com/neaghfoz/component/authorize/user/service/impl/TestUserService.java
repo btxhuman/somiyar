@@ -1,6 +1,7 @@
 package com.neaghfoz.component.authorize.user.service.impl;
 
-import com.neaghfoz.component.authorize.user.service.UserService;
+import com.neaghfoz.component.authorize.user.dao.IUserDAO;
+import com.neaghfoz.component.authorize.user.service.IUserService;
 import junit.framework.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -18,11 +19,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TestUserService {
     private static ApplicationContext appContext;
 
-    private static UserService userService;
+    private static IUserService userService;
 
     static {
         appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-        userService = appContext.getBean("userService", UserService.class);
+        userService = appContext.getBean("userService", IUserService.class);
     }
 
     @Test
@@ -34,6 +35,8 @@ public class TestUserService {
 
     @Test
     public void testFindWithSql() {
+    	IUserDAO userDAO = appContext.getBean("userDAO", IUserDAO.class);
+    	System.out.println("userDAO:::::::" + userDAO);
         String sql = "SELECT * FROM tb_user";  //表名大小写敏感
         Object o = userService.findWithSql(sql);
         Assert.assertNotNull(o);

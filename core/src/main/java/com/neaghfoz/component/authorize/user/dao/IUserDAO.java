@@ -1,6 +1,7 @@
 package com.neaghfoz.component.authorize.user.dao;
 
 import com.neaghfoz.component.authorize.user.model.User;
+import com.neaghfoz.framework.hibernate.IBaseDAO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,9 +10,6 @@ import com.neaghfoz.component.authorize.user.model.User;
  * Time: 上午9:18
  * To change this template use File | Settings | File Templates.
  */
-public interface IUserDAO {
-    public void saveUser(User user);
-
-    public void deleteUser(User user);
+public interface IUserDAO extends IBaseDAO<User>{
 
 }

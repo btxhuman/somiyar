@@ -5,83 +5,134 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.neaghfoz.util.Order;
-import com.neaghfoz.util.Pager;
-import com.neaghfoz.util.Property;
+import javax.annotation.Resource;
+
+import com.neaghfoz.common.util.Order;
+import com.neaghfoz.common.util.Pager;
+import com.neaghfoz.common.util.Property;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 
 
-public abstract class BaseDao<T extends Serializable> {
+public abstract class BaseDAO<T extends Serializable> implements IBaseDAO<T> {
+	
+	@Resource
+    private SessionFactory sessionFactory;
 
-    /**
-     * 由子类根据需要注入相应SessionFactory
-     *
-     * @return
-     */
-    public abstract Session getSession();
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#getSession()
+	 */
+    @Override
+	public Session getSession(){
+    	return sessionFactory.getCurrentSession();
+    }
 
     private Class<T> className;
     protected Logger log;
 
     @SuppressWarnings("unchecked")
-    public BaseDao() {
-        className = (Class<T>) ((ParameterizedType) getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[0];
+    public BaseDAO() {
+        className = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         log = Logger.getLogger("sqlLog");
     }
 
-    public T save(T entity) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#save(java.lang.Object)
+	 */
+    @Override
+	public Object save(Object entity) {
         getSession().save(entity);
         return entity;
     }
 
-    public void update(Object entity) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#update(java.lang.Object)
+	 */
+    @Override
+	public void update(Object entity) {
         getSession().update(entity);
     }
 
-    public void saveOrUpdate(Object entity) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#saveOrUpdate(java.lang.Object)
+	 */
+    @Override
+	public void saveOrUpdate(Object entity) {
         getSession().saveOrUpdate(entity);
     }
 
-    public Object merge(Object entity) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#merge(java.lang.Object)
+	 */
+    @Override
+	public Object merge(Object entity) {
         getSession().merge(entity);
         return entity;
     }
 
-    public void delete(Object entity) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#delete(java.lang.Object)
+	 */
+    @Override
+	public void delete(Object entity) {
         getSession().delete(entity);
     }
 
-    @SuppressWarnings("unchecked")
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#get(java.io.Serializable)
+	 */
+    @Override
+	@SuppressWarnings("unchecked")
     public T get(Serializable id) {
         T entity = (T) getSession().get(className, id);
         return entity;
     }
 
-    @SuppressWarnings("unchecked")
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#load(java.io.Serializable)
+	 */
+    @Override
+	@SuppressWarnings("unchecked")
     public T load(Serializable id) {
         T entity = (T) getSession().load(className, id);
         return entity;
     }
 
-    public List<T> findAll(Order order, Property... propertys) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#findAll(com.neaghfoz.common.util.Order, com.neaghfoz.common.util.Property)
+	 */
+    @Override
+	public List<T> findAll(Order order, Property... propertys) {
         return findByPager(null, new Order[]{order}, propertys);
     }
 
-    public List<T> findAll(Order[] orders, Property... propertys) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#findAll(com.neaghfoz.common.util.Order[], com.neaghfoz.common.util.Property)
+	 */
+    @Override
+	public List<T> findAll(Order[] orders, Property... propertys) {
         return findByPager(null, orders, propertys);
     }
 
-    public List<T> findByPager(Pager pager, Order order, Property... propertys) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#findByPager(com.neaghfoz.common.util.Pager, com.neaghfoz.common.util.Order, com.neaghfoz.common.util.Property)
+	 */
+    @Override
+	public List<T> findByPager(Pager pager, Order order, Property... propertys) {
         return findByPager(pager, new Order[]{order}, propertys);
     }
 
-    @SuppressWarnings("unchecked")
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#findByPager(com.neaghfoz.common.util.Pager, com.neaghfoz.common.util.Order[], com.neaghfoz.common.util.Property)
+	 */
+    @Override
+	@SuppressWarnings("unchecked")
     public List<T> findByPager(Pager pager, Order[] orders,
                                Property... propertys) {
         Criteria criteria = getSession().createCriteria(className);
@@ -113,7 +164,11 @@ public abstract class BaseDao<T extends Serializable> {
         return criteria.list();
     }
 
-    public Integer countByProperty(String propertyName, Property... propertys) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#countByProperty(java.lang.String, com.neaghfoz.common.util.Property)
+	 */
+    @Override
+	public Integer countByProperty(String propertyName, Property... propertys) {
         Criteria criteria = getSession().createCriteria(className);
         // 查询条件
         for (Property property : propertys) {
@@ -178,102 +233,75 @@ public abstract class BaseDao<T extends Serializable> {
         return query.list();
     }
 
-    /**
-     * 根据原生Sql查询(分页)
-     *
-     * @param pager  分页公共类
-     * @param sql    查询Sql串
-     * @param values 查询参数
-     * @param clazz  实体的class对象
-     * @return 返回查询结果
-     */
-    public Object findWithSql(Pager pager, String sql, Class clazz, Object... values) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#findWithSql(com.neaghfoz.common.util.Pager, java.lang.String, java.lang.Class, java.lang.Object)
+	 */
+    @Override
+	public Object findWithSql(Pager pager, String sql, Class clazz, Object... values) {
         return executeSqlQuery(pager, sql, clazz, values);
     }
 
-    /**
-     * 根据原生Sql查询(不分页)
-     *
-     * @param sql    查询Sql串
-     * @param values 查询参数
-     * @param clazz  实体的class对象
-     * @return 返回查询结果
-     */
-    public Object findWithSql(String sql, Class clazz, Object... values) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#findWithSql(java.lang.String, java.lang.Class, java.lang.Object)
+	 */
+    @Override
+	public Object findWithSql(String sql, Class clazz, Object... values) {
         return executeSqlQuery(null, sql, clazz, values);
     }
 
-    /**
-     * 根据原生Sql查询(不分页,不带查询参数)
-     *
-     * @param sql 查询Sql串
-     * @return 查询集合对象
-     */
-    public Object findWithSql(String sql) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#findWithSql(java.lang.String)
+	 */
+    @Override
+	public Object findWithSql(String sql) {
         return executeSqlQuery(null, sql, null);
     }
 
-    /**
-     * 根据原生Sql查询(不分页,不带查询参数)
-     *
-     * @param sql   查询Sql串
-     * @param clazz 实体的Class对象
-     * @return 查询集合对象
-     */
-    public Object findWithSql(String sql, Class clazz) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#findWithSql(java.lang.String, java.lang.Class)
+	 */
+    @Override
+	public Object findWithSql(String sql, Class clazz) {
         return executeSqlQuery(null, sql, clazz, null);
     }
 
-    /**
-     * 根据Hql查询(分页)
-     *
-     * @param pager  分页公共类
-     * @param hql    查询hql串
-     * @param values 查询参数
-     * @return 返回查询结果
-     */
-    public Object findWithHql(Pager pager, String hql, Object... values) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#findWithHql(com.neaghfoz.common.util.Pager, java.lang.String, java.lang.Object)
+	 */
+    @Override
+	public Object findWithHql(Pager pager, String hql, Object... values) {
         return executeQuery(pager, hql, values);
     }
 
-    /**
-     * 根据Hql查询(不分页)
-     *
-     * @param hql    查询hql串
-     * @param values 查询参数
-     * @return 返回查询结果
-     */
-    public Object findWitHql(String hql, Object... values) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#findWitHql(java.lang.String, java.lang.Object)
+	 */
+    @Override
+	public Object findWitHql(String hql, Object... values) {
         return executeQuery(null, hql, values);
     }
 
-    /**
-     * 根据Hql查询(不分页,不带查询参数)
-     *
-     * @param hql 查询hql串
-     * @return 查询集合对象
-     */
-    public Object findWitHql(String hql) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#findWitHql(java.lang.String)
+	 */
+    @Override
+	public Object findWitHql(String hql) {
         return executeQuery(null, hql, null);
     }
 
-    /**
-     * 通过Sql执行更新/删除操作
-     *
-     * @param sql 待处理语句串
-     * @return 影响行数
-     */
-    public int updOrDelWithSql(String sql) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#updOrDelWithSql(java.lang.String)
+	 */
+    @Override
+	public int updOrDelWithSql(String sql) {
         return getSession().createSQLQuery(sql).executeUpdate();
     }
 
-    /**
-     * 通过hql执行更新/删除操作
-     *
-     * @param hql 待处理语句串
-     * @return 影响行数
-     */
-    public int updOrDelWithHql(String hql) {
+    /* (non-Javadoc)
+	 * @see com.neaghfoz.framework.hibernate.IBaseDAO#updOrDelWithHql(java.lang.String)
+	 */
+    @Override
+	public int updOrDelWithHql(String hql) {
         return getSession().createQuery(hql).executeUpdate();
     }
 

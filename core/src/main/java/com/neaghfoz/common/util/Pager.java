@@ -1,4 +1,4 @@
-package com.neaghfoz.util;
+package com.neaghfoz.common.util;
 
 import java.io.Serializable;
 

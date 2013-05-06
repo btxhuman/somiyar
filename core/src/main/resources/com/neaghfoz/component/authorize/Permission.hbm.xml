@@ -11,7 +11,8 @@
         <property name="childModule" column="child_module" type="string"/>
         <property name="permissionCode" column="permission_code" type="string" unique="true"/>
         <property name="permissionDesc" column="permission_desc" type="string"/>
-        <set name="roleSet" table="tb_role_per_link" inverse="true" cascade="delete">
+        
+        <set name="roleSet" table="tb_role_per_link" inverse="false">
             <key column="permission_id"/>
             <many-to-many class="com.neaghfoz.component.authorize.role.model.Role" column="role_id"/>
         </set>

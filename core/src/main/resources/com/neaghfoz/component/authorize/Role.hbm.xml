@@ -14,7 +14,6 @@
             <many-to-many class="com.neaghfoz.component.authorize.user.model.User" column="user_id"/>
         </set>
 
-        <!-- tb_role_per_link 这张表是由 tb_role(model:Role) 来进行维护 -->
         <set name="permissionSet" table="tb_role_per_link" inverse="false">
             <key column="role_id"/>
             <many-to-many class="com.neaghfoz.component.authorize.permission.model.Permission" column="permission_id"/>

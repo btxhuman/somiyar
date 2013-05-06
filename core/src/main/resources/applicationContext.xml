@@ -5,13 +5,13 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
-        http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd"
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        	http://www.springframework.org/schema/context
+        	http://www.springframework.org/schema/context/spring-context.xsd
+        	http://www.springframework.org/schema/tx
+        	http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+        	http://www.springframework.org/schema/aop
+        	http://www.springframework.org/schema/aop/spring-aop.xsd"
        default-lazy-init="true">
 
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -105,13 +105,19 @@
 
     <!-- Enable @Transactional support  这个注解需要在service层某个方法手动来进行事务的配置-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
+	
+	<!-- Enable @Resource support -->
+	<context:annotation-config/>  
+	
     <!-- Enable @AspectJ support -->
-    <!-- <aop:aspectj-autoproxy/>-->
+    <!-- <aop:aspectj-autoproxy/> -->
 
     <!-- Activates scanning of @Autowired -->
-    <context:annotation-config/>
-
+	<!-- <context:annotation-config/> -->
+	
+	<!-- Activates scanning of @Repository and @Service -->
+    <!-- <context:component-scan base-package="com.neaghfoz"/> -->
+    
     <!--
         关闭的配置文件的事务管理aop:config 可以通过注解 @Transactional 来控制事务
         execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern) throws-pattern?)
@@ -122,7 +128,7 @@
 
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <!-- 设置事务的传播性 以及回滚的异常 read-only为true时候,
+            <!-- 设置事务的传播性 以及回滚的异常。read-only为true时候,
             	方法不会向数据库进行写操作(即使调用了hibernate中 session.save()方法)-->
             <tx:method name="save*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="add*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
@@ -137,10 +143,6 @@
             <tx:method name="find*" read-only="true"/>
         </tx:attributes>
     </tx:advice>
-
-
-    <!-- Activates scanning of @Repository and @Service -->
-    <!-- <context:component-scan base-package="com.neaghfoz"/> -->
 
     <!-- 添加spring xml 的配置文件 -->
     <!-- <import resource="classpath:cn/com/do1/dqdp/core/**/*-spring.xml"/> -->

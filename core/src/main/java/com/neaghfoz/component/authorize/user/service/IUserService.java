@@ -10,8 +10,19 @@ import com.neaghfoz.component.authorize.user.model.User;
  * To change this template use File | Settings | File Templates.
  */
 public interface IUserService {
+	 /**
+     * 通过Hql查询
+     *
+     * @param sql 待处理sql串
+     * @return 返回查询结果
+     */
+	public Object findWithSql(String sql);
 
-    public void saveUser(User user);
-
-    public void deleteUser(User user);
+	 /**
+     * 通过Hql查询
+     *
+     * @param hql 待处理hql串
+     * @return 返回查询结果
+     */
+	public Object findWithHql(String hql);
 }
