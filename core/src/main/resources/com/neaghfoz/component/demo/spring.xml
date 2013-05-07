@@ -13,15 +13,16 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<bean id="demo1Service" class="com.neaghfoz.component.demo.demo1.service.impl.Demo1Service"/>
-    <bean id="demo1DAO" class="com.neaghfoz.component.demo.demo1.dao.impl.Demo1DAOImpl"/>
+	<bean id="demo1Service" class="com.neaghfoz.component.demo.service.impl.Demo1Service"/>
+	
+    <bean id="demo1DAO" class="com.neaghfoz.component.demo.dao.impl.Demo1DAOImpl" parent="parentSessionFac"/>
 
-    <bean id="adviceDemo" class="com.neaghfoz.component.demo.demo1.aop.AdviceDemo" />
+    <bean id="adviceDemo" class="com.neaghfoz.component.demo.aop.AdviceDemo" />
 
     <aop:config>
         <aop:aspect id="aspectDemo" ref="adviceDemo">
             <!-- 为特定某个service所有方法来进行切面增强处理-->
-            <aop:pointcut id="demo1ServicePointCut" expression="execution(* com.neaghfoz.component.demo.demo1.service.impl.Demo1Service.*(..))" />
+            <aop:pointcut id="demo1ServicePointCut" expression="execution(* com.neaghfoz.component.demo.service.impl.Demo1Service.*(..))" />
             <aop:before method="beforeTx" pointcut-ref="demo1ServicePointCut" />
             <aop:after method="afterTx" pointcut-ref="demo1ServicePointCut"/>
         </aop:aspect>

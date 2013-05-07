@@ -11,8 +11,8 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<bean id="userDAO" class="com.neaghfoz.component.authorize.dao.impl.UserDAOImpl" />
-	<bean id="roleDAO" class="com.neaghfoz.component.authorize.dao.impl.RoleDAOImpl" />
+	<bean id="userDAO" class="com.neaghfoz.component.authorize.dao.impl.UserDAOImpl" parent="parentSessionFac"/>
+	<bean id="roleDAO" class="com.neaghfoz.component.authorize.dao.impl.RoleDAOImpl" parent="parentSessionFac"/>
 
 	<bean id="userService" class="com.neaghfoz.component.authorize.service.impl.UserServiceImpl" />
 	<bean id="roleService" class="com.neaghfoz.component.authorize.service.impl.RoleServiceImpl" />

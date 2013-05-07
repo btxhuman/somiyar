@@ -1,6 +1,7 @@
 package com.neaghfoz.component.authorize.dao;
 
 import com.neaghfoz.component.authorize.model.Role;
+import com.neaghfoz.framework.hibernate.IBaseDAO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,6 +10,5 @@ import com.neaghfoz.component.authorize.model.Role;
  * Time: 上午9:30
  * To change this template use File | Settings | File Templates.
  */
-public interface IRoleDAO {
-    public void deleteRole(Role role);
+public interface IRoleDAO extends IBaseDAO<Role>{
 }

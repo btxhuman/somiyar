@@ -2,6 +2,7 @@ package com.neaghfoz.component.authorize.dao.impl;
 
 import com.neaghfoz.component.authorize.dao.IRoleDAO;
 import com.neaghfoz.component.authorize.model.Role;
+import com.neaghfoz.framework.hibernate.BaseDAOImpl;
 
 import org.hibernate.SessionFactory;
 
@@ -14,13 +15,6 @@ import javax.annotation.Resource;
  * Time: 下午9:46
  * To change this template use File | Settings | File Templates.
  */
-public class RoleDAOImpl implements IRoleDAO{
-    @Resource
-    private SessionFactory sessionFactory;
+public class RoleDAOImpl extends BaseDAOImpl<Role> implements IRoleDAO{
 
-    @Override
-    public void deleteRole(Role role) {
-        sessionFactory.getCurrentSession().delete(role);
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
 }

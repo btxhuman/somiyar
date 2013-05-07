@@ -21,6 +21,10 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     @Resource
     private IUserDAO userDAO;
     
+	@Override
+	public IBaseDAO getBaseDAO() {
+		return userDAO;
+	}
 
 	@Override
     public Object findWithSql(String sql) {
@@ -33,18 +37,8 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         return userDAO.findWitHql(hql);
     }
 
-	@Override
-	public Object saveObj(Object entity) {
-		// TODO Auto-generated method stub
-		return userDAO.save(entity);
-	}
 
 
-	@Override
-	public IBaseDAO getBaseDAO() {
-		// TODO Auto-generated method stub
-		return userDAO;
-	}
 
 
 }

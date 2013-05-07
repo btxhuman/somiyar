@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="com.neaghfoz.component.demo.demo1.model">
+<hibernate-mapping package="com.neaghfoz.component.demo.model">
     <class name="Demo1PO" table="tb_demo1">
         <id name="demo1Id" column="demo1_id">
             <generator class="uuid"/>

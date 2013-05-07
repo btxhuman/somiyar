@@ -1,6 +1,6 @@
 package com.neaghfoz.component.authorize.service;
 
-import com.neaghfoz.component.authorize.model.Role;
+import com.neaghfoz.common.IBaseService;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,6 +9,5 @@ import com.neaghfoz.component.authorize.model.Role;
  * Time: 下午9:47
  * To change this template use File | Settings | File Templates.
  */
-public interface IRoleService {
-    public void deleteRole(Role role);
+public interface IRoleService extends IBaseService{
 }
