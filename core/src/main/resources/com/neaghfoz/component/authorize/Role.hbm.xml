@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="com.neaghfoz.component.authorize.role.model">
+<hibernate-mapping package="com.neaghfoz.component.authorize.model">
     <class name="Role" table="tb_role">
         <id name="roleId" column="role_id" type="string">
             <generator class="uuid"/>
@@ -11,12 +11,12 @@
 
         <set name="userSet" table="tb_user_role_link" inverse="false" >
             <key column="role_id"/>
-            <many-to-many class="com.neaghfoz.component.authorize.user.model.User" column="user_id"/>
+            <many-to-many class="com.neaghfoz.component.authorize.model.User" column="user_id"/>
         </set>
 
         <set name="permissionSet" table="tb_role_per_link" inverse="false">
             <key column="role_id"/>
-            <many-to-many class="com.neaghfoz.component.authorize.permission.model.Permission" column="permission_id"/>
+            <many-to-many class="com.neaghfoz.component.authorize.model.Permission" column="permission_id"/>
         </set>
     </class>
 
