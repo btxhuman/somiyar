@@ -5,18 +5,23 @@
 
 <struts>
 
-    <constant name="struts.devMode" value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.action.extension" value="action," />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.custom.i18n.resources" value="ApplicationResources,errors" />
 
-    <package name="/" extends="struts-default">
+	<!-- 后台管理的struts package 可以向里面添加拦截器什么的 -->
+	<package name="admin-default" extends="struts-default">
 
-        <action name="index">
-            <result>/index.jsp</result>
-        </action>
+	</package>
 
-        <action name="admin_index" class="com.neaghfoz.webapp.action.UserAction">
-            <result>/WEB-INF/admin/index.jsp</result>
-        </action>
 
-    </package>
+	<!-- 前台显示页面的struts package -->
+	<package name="default" extends="struts-default">
 
+	</package>
+
+	<!-- 引入其他包里面的struts配置文件 -->
+	<include file="com/neaghfoz/component/authorize/struts.xml" />
 </struts>

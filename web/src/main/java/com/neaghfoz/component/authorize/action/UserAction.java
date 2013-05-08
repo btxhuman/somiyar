@@ -1,6 +1,8 @@
-package com.neaghfoz.webapp.action;
+package com.neaghfoz.component.authorize.action;
 
 import org.springframework.stereotype.Controller;
+
+import com.neaghfoz.framework.struts.BaseAction;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,4 +18,6 @@ public class UserAction extends BaseAction {
 
         return SUCCESS;
     }
+    
+    
 }

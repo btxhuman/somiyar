@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    
+    <!-- 
+    	package继承package:admin-default(后台管理的Action)的 name 命名规则是 name=componentName+".admin" namespace="/sysadmin"
+    -->
+    <package name="authorize.admin" namespace="/sysadmin" extends="admin-default">
+        <action name="user" class="com.neaghfoz.component.authorize.action.SysUserAction">
+        
+        </action>
+    </package>
+    
+    <!--
+    	package继承package:default(前台显示的Action)的 name 命名规则是 name=componentName  
+    	namespace可以是随便起(除了sysadmin),建议用"/"作为namespace的值
+    -->
+    <package name="authorize" namespace="/" extends="default">
+    	<action name="user" class="com.neaghfoz.component.authorize.action.UserAction">
+    		
+    	</action>
+    </package>
+</struts>

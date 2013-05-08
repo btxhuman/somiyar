@@ -1,4 +1,4 @@
-package com.neaghfoz.webapp.action;
+package com.neaghfoz.framework.struts;
 
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.logging.Log;
