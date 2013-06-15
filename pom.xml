@@ -125,9 +125,9 @@
 		<jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
 		<jdbc.version>5.1.22</jdbc.version>
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-		<jdbc.url>jdbc:mysql://74.207.252.121/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</jdbc.url>
-		<jdbc.username>dev</jdbc.username>
-		<jdbc.password>wSyvNAruNdbLnYnR</jdbc.password>
+		<jdbc.url></jdbc.url>
+		<jdbc.username></jdbc.username>
+		<jdbc.password></jdbc.password>
 		<!-- 数据库设置 end -->
 
 	</properties>
