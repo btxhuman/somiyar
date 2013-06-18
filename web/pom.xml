@@ -133,6 +133,12 @@
 			<artifactId>urlrewritefilter</artifactId>
 			<version>4.0.3</version>
 		</dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 		<!-- <dependency> <groupId>commons-logging</groupId> <artifactId>commons-logging</artifactId> 
 			<version>1.1</version> <type>jar</type> </dependency> <dependency> <groupId>org.slf4j</groupId> 
 			<artifactId>slf4j-jcl</artifactId> <version>1.0.1</version> <type>jar</type> 
