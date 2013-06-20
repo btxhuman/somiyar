@@ -10,7 +10,7 @@
     <!--项目的基本配置属性-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:applicationContext.xml,classpath:applicationContext-security.xml</param-value>
+        <param-value>classpath:applicationContext-security.xml</param-value>
     </context-param>
     <!--项目的基本配置属性end-->
 
@@ -49,6 +49,8 @@
     <filter-mapping>
         <filter-name>struts2</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
     <!--过滤器的url映射配置end-->
 

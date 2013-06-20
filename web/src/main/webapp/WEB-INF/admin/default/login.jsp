@@ -1,14 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>管理后台登录页面</title>
-    <jsp:include page="../../common/charisma-head.jsp"/>
+    <jsp:include page="../../../common/charisma-head.jsp"/>
 </head>
 
 <body>
@@ -28,24 +24,21 @@
                 <div class="alert alert-info">
                     请输入用户名和密码
                 </div>
-                <form class="form-horizontal" action="index.jsp" method="post">
+                <form class="form-horizontal" action="../index.jsp" method="post">
                     <fieldset>
                         <div class="input-prepend" title="用户名" data-rel="tooltip">
-                            <span class="add-on"><i class="icon-user"></i></span><input autofocus
-                                                                                        class="input-large span10"
-                                                                                        name="username" id="username"
-                                                                                        type="text" value="admin"/>
+                            <span class="add-on"><i class="icon-user"></i></span>
+                            <input autofocus class="input-large span10" name="username" id="username" type="text"
+                                   value="admin"/>
                         </div>
                         <div class="clearfix"></div>
 
                         <div class="input-prepend" title="密码" data-rel="tooltip">
-                            <span class="add-on"><i class="icon-lock"></i></span><input class="input-large span10"
-                                                                                        name="password" id="password"
-                                                                                        type="password"
-                                                                                        value="admin123456"/>
+                            <span class="add-on"><i class="icon-lock"></i></span>
+                            <input class="input-large span10" name="password" id="password" type="password"
+                                   value="admin123456"/>
                         </div>
                         <div class="clearfix"></div>
-
                         <div class="input-prepend">
                             <label class="remember" for="remember"><input type="checkbox" id="remember"/>记住我</label>
                         </div>
@@ -65,7 +58,7 @@
 
 </div>
 <!--/.fluid-container-->
-<jsp:include page="../../common/charisma-footer.jsp"/>
+<jsp:include page="../../../common/charisma-footer.jsp"/>
 
 
 </body>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+             http://www.springframework.org/schema/security
+             http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <beans:bean id="propertyConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <beans:property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <beans:property name="locations">
+            <beans:list>
+                <beans:value>classpath:jdbc.properties</beans:value>
+                <beans:value>classpath:config.properties</beans:value>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+
+    <!-- 该路径下的资源不用过滤 -->
+    <http pattern="/**/*.js" security="none"/>
+    <http pattern="/**/*.png" security="none"/>
+    <http pattern="/**/*.css" security="none"/>
+    <http pattern="/**/*.jpg" security="none"/>
+    <http pattern="/**/*.gif" security="none"/>
+    <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint">
+        <!--表达式 说明-->
+        <!--hasRole([role]) 返回 true 如果当前主体拥有特定角色。-->
+        <!--hasAnyRole([role1,role2]) 返回 true 如果当前主体拥有任何一个提供的角色 （使用逗号分隔的字符串队列）-->
+        <!--principal 允许直接访问主体对象，表示当前用户-->
+        <!--authentication 允许直接访问当前 Authentication对象 从SecurityContext中获得-->
+        <!--permitAll 一直返回true-->
+        <!--denyAll 一直返回false-->
+        <!--isAnonymous() 如果用户是一个匿名登录的用户 就会返回 true-->
+        <!--isRememberMe() 如果用户是通过remember-me 登录的用户 就会返回 true-->
+        <!--isAuthenticated() 如果用户不是匿名用户就会返回true-->
+        <!--isFullyAuthenticated() 如果用户不是通过匿名也不是通过remember-me登录的用户时， 就会返回true。-->
+        <!--<custom-filter position="FIRST" ref="httpsCookieFilter"/>
+        <custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER"/>
+        <custom-filter ref="customValidFilter" before="FORM_LOGIN_FILTER"/>
+        <custom-filter ref="sessionFilter" after="FORM_LOGIN_FILTER"/>
+        <custom-filter ref="concurrentSessionFilter" position="CONCURRENT_SESSION_FILTER"/>-->
+        <intercept-url pattern="/**/sysadmin/user/toLogin*" access="permitAll" requires-channel="http"/>
+        <intercept-url pattern="/**/j_spring_security_check" access="permitAll" requires-channel="http"/>
+        <intercept-url pattern="/**/j_spring_security_logout" requires-channel="http"/>
+        <intercept-url pattern="/**/*.jsp*" access="hasRole('ROLE_user')" requires-channel="http"/>
+        <intercept-url pattern="/**/*.action*" access="hasRole('ROLE_user')" requires-channel="http"/>
+        <intercept-url pattern="/**/*.do*" access="hasRole('ROLE_user')" requires-channel="http"/>
+        <logout logout-url="/j_spring_security_logout" logout-success-url="/jsp/default/login/login_in.jsp"
+                delete-cookies="true"/>
+        <session-management session-authentication-strategy-ref="sessionControlStrategy"
+                            invalid-session-url="/jsp/default/invalid_session.jsp"
+                            session-authentication-error-url="/jsp/default/session_error.jsp"/>
+        <port-mappings>
+            <port-mapping http="${http.port}" https="8443"/>
+        </port-mappings>
+        <remember-me/>
+    </http>
+
+    <beans:bean id="authenticationProcessingFilterEntryPoint"
+                class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <beans:property name="loginFormUrl" value="/sysadmin/user/toLogin"/>
+        <beans:property name="useForward" value="true"/>
+    </beans:bean>
+
+    <!-- session 管理策略-->
+    <beans:bean id="sessionControlStrategy"
+                class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+        <beans:constructor-arg name="sessionRegistry" ref="sessionRegistry"/>
+        <beans:property name="maximumSessions" value="-1"/>
+        <beans:property name="exceptionIfMaximumExceeded" value="true"/>
+        <beans:property name="alwaysCreateSession" value="true"/>
+    </beans:bean>
+    <beans:bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl"/>
+    <!-- session 管理策略end-->
+
+    <!-- 登录调用的service以及登录密码加密的策略-->
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="userDetailsService">
+            <password-encoder ref="passwordEncoder" hash="md5"/>
+        </authentication-provider>
+    </authentication-manager>
+    <beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
+    <!-- 登录调用的service end-->
+
+    <beans:import resource="classpath:applicationContext.xml"/>
+</beans:beans>

@@ -19,6 +19,11 @@
         <to type="redirect">%{context-path}/rewrite-status</to>
     </rule>
 
+    <rule>
+        <note>后台的管理地址的重写</note>
+        <from>^/sysadmin/(.*)/(.*)$</from>
+        <to >/sysadmin/$1_$2.do</to>
+    </rule>
 
     <outbound-rule>
         <note>

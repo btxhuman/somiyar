@@ -14,16 +14,6 @@
         	http://www.springframework.org/schema/aop/spring-aop.xsd"
        default-lazy-init="true">
 
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="ignoreUnresolvablePlaceholders" value="true"/>
-        <property name="locations">
-            <list>
-                <value>classpath:jdbc.properties</value>
-            </list>
-        </property>
-    </bean>
-
-
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
         <property name="driverClass" value="${jdbc.driverClassName}"/>
@@ -78,7 +68,7 @@
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <!--配置这个属性是用来自动建表-->
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
                 <prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
                 <prop key="current_session_context_class">thread</prop>    
                 <prop key="hibernate.cache.use_second_level_cache">true</prop>

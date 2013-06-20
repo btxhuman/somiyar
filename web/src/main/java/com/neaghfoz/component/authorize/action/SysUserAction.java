@@ -7,4 +7,8 @@ import com.neaghfoz.framework.struts.BaseAction;
  * **/
 public class SysUserAction extends BaseAction{
 
+
+    public String toLogin(){
+        return "toLogin";
+    }
 }
