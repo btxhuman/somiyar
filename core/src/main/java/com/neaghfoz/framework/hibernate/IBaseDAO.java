@@ -5,10 +5,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.neaghfoz.common.util.Order;
-import com.neaghfoz.common.util.Pager;
-import com.neaghfoz.common.util.Property;
-
 public interface IBaseDAO<T extends Serializable> {
 
 	/**

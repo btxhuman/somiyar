@@ -5,12 +5,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import com.neaghfoz.common.util.Order;
-import com.neaghfoz.common.util.Pager;
-import com.neaghfoz.common.util.Property;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -134,7 +128,7 @@ public abstract class BaseDAOImpl<T extends Serializable> implements
 	 * 
 	 * @see
 	 * com.neaghfoz.framework.hibernate.IBaseDAO#findAll(com.neaghfoz.common
-	 * .util.Order, com.neaghfoz.common.util.Property)
+	 * .util.Order, com.neaghfoz.framework.hibernate.Property)
 	 */
 	@Override
 	public List<T> findAll(Order order, Property... propertys) {
@@ -146,7 +140,7 @@ public abstract class BaseDAOImpl<T extends Serializable> implements
 	 * 
 	 * @see
 	 * com.neaghfoz.framework.hibernate.IBaseDAO#findAll(com.neaghfoz.common
-	 * .util.Order[], com.neaghfoz.common.util.Property)
+	 * .util.Order[], com.neaghfoz.framework.hibernate.Property)
 	 */
 	@Override
 	public List<T> findAll(Order[] orders, Property... propertys) {
@@ -158,8 +152,8 @@ public abstract class BaseDAOImpl<T extends Serializable> implements
 	 * 
 	 * @see
 	 * com.neaghfoz.framework.hibernate.IBaseDAO#findByPager(com.neaghfoz.common
-	 * .util.Pager, com.neaghfoz.common.util.Order,
-	 * com.neaghfoz.common.util.Property)
+	 * .util.Pager, com.neaghfoz.framework.hibernate.Order,
+	 * com.neaghfoz.framework.hibernate.Property)
 	 */
 	@Override
 	public List<T> findByPager(Pager pager, Order order, Property... propertys) {
@@ -171,8 +165,8 @@ public abstract class BaseDAOImpl<T extends Serializable> implements
 	 * 
 	 * @see
 	 * com.neaghfoz.framework.hibernate.IBaseDAO#findByPager(com.neaghfoz.common
-	 * .util.Pager, com.neaghfoz.common.util.Order[],
-	 * com.neaghfoz.common.util.Property)
+	 * .util.Pager, com.neaghfoz.framework.hibernate.Order[],
+	 * com.neaghfoz.framework.hibernate.Property)
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
@@ -212,7 +206,7 @@ public abstract class BaseDAOImpl<T extends Serializable> implements
 	 * 
 	 * @see
 	 * com.neaghfoz.framework.hibernate.IBaseDAO#countByProperty(java.lang.String
-	 * , com.neaghfoz.common.util.Property)
+	 * , com.neaghfoz.framework.hibernate.Property)
 	 */
 	@Override
 	public Integer countByProperty(String propertyName, Property... propertys) {

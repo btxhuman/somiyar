@@ -1,4 +1,4 @@
-package com.neaghfoz.common.util;
+package com.neaghfoz.framework.hibernate;
 
 import java.util.Collection;
 

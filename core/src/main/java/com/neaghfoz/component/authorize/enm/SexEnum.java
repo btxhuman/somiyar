@@ -2,7 +2,7 @@ package com.neaghfoz.component.authorize.enm;
 
 /**
  * Created with IntelliJ IDEA.
- * User: zhong
+ * User: btxhuman
  * Date: 13-5-4
  * Time: 上午10:06
  * To change this template use File | Settings | File Templates.

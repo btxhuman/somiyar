@@ -1,7 +1,7 @@
 package com.neaghfoz.component.demo.service;
 
 
-import com.neaghfoz.common.IBaseService;
+import com.neaghfoz.framework.service.IBaseService;
 import com.neaghfoz.component.demo.model.Demo1PO;
 
 

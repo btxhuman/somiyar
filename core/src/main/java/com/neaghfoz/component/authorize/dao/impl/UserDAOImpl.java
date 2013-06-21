@@ -6,7 +6,7 @@ import com.neaghfoz.framework.hibernate.BaseDAOImpl;
 
 /**
  * Created with IntelliJ IDEA.
- * User: zhong
+ * User: btxhuman
  * Date: 13-5-4
  * Time: 下午8:12
  * To change this template use File | Settings | File Templates.

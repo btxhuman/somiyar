@@ -5,7 +5,7 @@ import com.neaghfoz.framework.hibernate.IBaseDAO;
 
 /**
  * Created with IntelliJ IDEA.
- * User: zhong
+ * User: btxhuman
  * Date: 13-4-30
  * Time: 下午2:41
  * To change this template use File | Settings | File Templates.
