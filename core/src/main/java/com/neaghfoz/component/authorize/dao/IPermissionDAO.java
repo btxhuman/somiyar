@@ -1,5 +1,9 @@
 package com.neaghfoz.component.authorize.dao;
 
+import com.neaghfoz.component.authorize.model.Permission;
+
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: btxhuman
@@ -8,4 +12,5 @@ package com.neaghfoz.component.authorize.dao;
  * To change this template use File | Settings | File Templates.
  */
 public interface IPermissionDAO {
+    public List<Permission> getPermissionsByUserId(String id) throws Exception;
 }
