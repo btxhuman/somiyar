@@ -24,11 +24,11 @@
                 <div class="alert alert-info">
                     请输入用户名和密码
                 </div>
-                <form class="form-horizontal" action="../index.jsp" method="post">
+                <form class="form-horizontal" action="${path}/sysadmin/user/login" method="post">
                     <fieldset>
                         <div class="input-prepend" title="用户名" data-rel="tooltip">
                             <span class="add-on"><i class="icon-user"></i></span>
-                            <input autofocus class="input-large span10" name="username" id="username" type="text"
+                            <input autofocus class="input-large span10" name="userName" id="username" type="text"
                                    value="admin"/>
                         </div>
                         <div class="clearfix"></div>
@@ -36,7 +36,7 @@
                         <div class="input-prepend" title="密码" data-rel="tooltip">
                             <span class="add-on"><i class="icon-lock"></i></span>
                             <input class="input-large span10" name="password" id="password" type="password"
-                                   value="admin123456"/>
+                                   value=""/>
                         </div>
                         <div class="clearfix"></div>
                         <div class="input-prepend">

@@ -40,12 +40,14 @@
         <custom-filter ref="customValidFilter" before="FORM_LOGIN_FILTER"/>
         <custom-filter ref="sessionFilter" after="FORM_LOGIN_FILTER"/>
         <custom-filter ref="concurrentSessionFilter" position="CONCURRENT_SESSION_FILTER"/>-->
+        <custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER"/>
         <intercept-url pattern="/**/sysadmin/user/toLogin*" access="permitAll" requires-channel="http"/>
         <intercept-url pattern="/**/j_spring_security_check" access="permitAll" requires-channel="http"/>
         <intercept-url pattern="/**/j_spring_security_logout" access="permitAll" requires-channel="http"/>
         <intercept-url pattern="/**/sysadmin/**" access="hasRole('ROLE_user')" requires-channel="http"/>
         <intercept-url pattern="/**/*.jsp*" access="hasRole('ROLE_user')" requires-channel="http"/>
-        <logout logout-url="/j_spring_security_logout" logout-success-url="/jsp/default/login/login_in.jsp" delete-cookies="true"/>
+        <logout logout-url="/j_spring_security_logout" logout-success-url="/jsp/default/login/login_in.jsp"
+                delete-cookies="true"/>
         <session-management session-authentication-strategy-ref="sessionControlStrategy"
                             invalid-session-url="/jsp/default/invalid_session.jsp"
                             session-authentication-error-url="/jsp/default/session_error.jsp"/>
@@ -60,6 +62,30 @@
         <beans:property name="loginFormUrl" value="/sysadmin/user/toLogin"/>
         <beans:property name="useForward" value="true"/>
     </beans:bean>
+
+    <!--登录过滤器-->
+    <beans:bean id="loginFilter"
+                class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <beans:property name="usernameParameter" value="userName"/>
+        <beans:property name="passwordParameter" value="password"/>
+        <beans:property name="filterProcessesUrl" value="/sysadmin/user/login" />
+        <beans:property name="postOnly" value="true"/>
+        <beans:property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
+        <beans:property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
+        <beans:property name="sessionAuthenticationStrategy" ref="sessionControlStrategy"/>
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+    </beans:bean>
+
+    <beans:bean id="authenticationFailureHandler"
+                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <beans:property name="defaultFailureUrl" value="/sysadmin/user/toLgin2"/>
+        <beans:property name="useForward" value="true"/>
+    </beans:bean>
+
+    <beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+        <beans:property name="defaultTargetUrl" value="/sysadmin/user/toLgin"/>
+    </beans:bean>
+
 
     <!-- session 管理策略-->
     <beans:bean id="sessionControlStrategy"

@@ -12,5 +12,11 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface IPermissionDAO {
+
+    /**
+     * @param id
+     * @return List<Permission>
+     * @throws Exception 根据用户的ID来获取用户的权限
+     */
     public List<Permission> getPermissionsByUserId(String id) throws Exception;
 }

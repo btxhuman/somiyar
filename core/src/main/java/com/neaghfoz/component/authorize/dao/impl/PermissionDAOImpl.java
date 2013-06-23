@@ -20,9 +20,10 @@ public class PermissionDAOImpl extends BaseDAOImpl<Role> implements IPermissionD
     @Override
     public List<Permission> getPermissionsByUserId(String id) throws Exception {
 
-        String subSql = "select distinct t.permission_id from tb_role_per_link  t inner join (select role_id from tb_user_role_link where user_id='1') tt on tt.role_id = t.role_id";
-
-        String sql = "select * from tb_permission x INNER JOIN " + "()  xx on x.permission_id = xx.permission_id";
-        return null;
+        String subSql = "select distinct t.permission_id from tb_role_per_link t inner join " +
+                "(select role_id from tb_user_role_link where user_id=:userId) tt on tt.role_id = t.role_id";
+        String sql = "select x.* from tb_permission x inner join (" + subSql + ")  xx on x.permission_id = xx.permission_id";
+        List<Permission> list = super.getSession().createSQLQuery(sql).addEntity(Permission.class).setString("userId", id).list();
+        return list;
     }
 }
