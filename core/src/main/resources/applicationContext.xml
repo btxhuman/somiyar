@@ -70,13 +70,13 @@
                 <!--配置这个属性是用来自动建表-->
                 <!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
                 <prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
-                <prop key="current_session_context_class">thread</prop>    
+                <prop key="current_session_context_class">thread</prop>
                 <prop key="hibernate.cache.use_second_level_cache">true</prop>
-                
+
                 <!-- Disable the second-level cache  -->
                 <prop key="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>
                 <!--<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>-->
-                
+
                 <!-- Hibernate Search index directory -->
                 <!--  
 				<prop key="hibernate.search.default.indexBase">target/index</prop>
@@ -99,25 +99,26 @@
 
     <!-- Enable @Transactional support  这个注解需要在service层某个方法手动来进行事务的配置-->
     <!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
-	
+
     <!-- Enable @AspectJ support -->
     <!-- <aop:aspectj-autoproxy/> -->
 
     <!-- Enable @Resource @Autowired support -->
 	<context:annotation-config/>
-	
+
 	<!-- Activates scanning of @Repository and @Service -->
     <!-- <context:component-scan base-package="com.neaghfoz"/> -->
-    
+
     <!--
     	关闭的配置文件的事务管理aop:config 可以通过注解 @Transactional 来控制事务
         execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern) throws-pattern?)
     -->
-    <aop:config>
+
+    <aop:config proxy-target-class="true" expose-proxy="true">
     	<aop:advisor advice-ref="txAdvice_baseService" pointcut="execution(* com.neaghfoz.framework.service.BaseServiceImpl.*(..))" order="0"/>
         <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neaghfoz.component..service..*.*(..))" order="1"/>
     </aop:config>
-    
+
     <!-- baseServiceImpl 的事务管理 -->
     <tx:advice id="txAdvice_baseService" transaction-manager="transactionManager">
         <tx:attributes>
@@ -143,7 +144,7 @@
             <tx:method name="remove*" propagation="REQUIRED" rollback-for="java.sql.SQLException"/>
             <tx:method name="get*" read-only="true" />
             <tx:method name="search*" read-only="true" />
-            <tx:method name="find*" read-only="true" />
+            <tx:method name="find*" read-only="true" propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
 

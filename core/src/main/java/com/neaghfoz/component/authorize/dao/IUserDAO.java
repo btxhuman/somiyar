@@ -11,4 +11,11 @@ import com.neaghfoz.framework.hibernate.IBaseDAO;
  * To change this template use File | Settings | File Templates.
  */
 public interface IUserDAO extends IBaseDAO<User>{
+    /**
+     * 通过用户名来获取用户的信息
+     *
+     * @param userName 用户名
+     * @return 返回user对象，如果不存在该用户则返回 null;
+     */
+    public User findUserByUserName(String userName);
 }
