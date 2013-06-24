@@ -17,6 +17,8 @@
         </beans:property>
     </beans:bean>
 
+    <beans:import resource="classpath:applicationContext.xml"/>
+
     <!-- 该路径下的资源不用过滤 -->
     <http pattern="/**/*.js" security="none"/>
     <http pattern="/**/*.png" security="none"/>
@@ -41,16 +43,16 @@
         <custom-filter ref="sessionFilter" after="FORM_LOGIN_FILTER"/>
         <custom-filter ref="concurrentSessionFilter" position="CONCURRENT_SESSION_FILTER"/>-->
         <custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER"/>
-        <intercept-url pattern="/**/sysadmin/user/toLogin*" access="permitAll" requires-channel="http"/>
-        <intercept-url pattern="/**/j_spring_security_check" access="permitAll" requires-channel="http"/>
-        <intercept-url pattern="/**/j_spring_security_logout" access="permitAll" requires-channel="http"/>
-        <intercept-url pattern="/**/sysadmin/**" access="hasRole('ROLE_user')" requires-channel="http"/>
+        <intercept-url pattern="/sysadmin/user/toLogin" access="permitAll" requires-channel="http"/>
+        <intercept-url pattern="/sysadmin/user/login" access="permitAll" requires-channel="http"/>
+        <intercept-url pattern="/sysadmin/user/logout" access="permitAll" requires-channel="http"/>
+        <intercept-url pattern="/sysadmin/**" access="hasRole('ROLE_user')" requires-channel="http"/>
         <intercept-url pattern="/**/*.jsp*" access="hasRole('ROLE_user')" requires-channel="http"/>
-        <logout logout-url="/j_spring_security_logout" logout-success-url="/jsp/default/login/login_in.jsp"
+        <logout logout-url="/sysadmin/user/logout" logout-success-url="/sysadmin/user/toLogin"
                 delete-cookies="true"/>
         <session-management session-authentication-strategy-ref="sessionControlStrategy"
-                            invalid-session-url="/jsp/default/invalid_session.jsp"
-                            session-authentication-error-url="/jsp/default/session_error.jsp"/>
+                            invalid-session-url="/sysadmin/user/toLogin"
+                            session-authentication-error-url="/sysadmin/user/toLogin"/>
         <port-mappings>
             <port-mapping http="${http.port}" https="8443"/>
         </port-mappings>
@@ -59,6 +61,7 @@
 
     <beans:bean id="authenticationProcessingFilterEntryPoint"
                 class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <!--loginFormUrl 是登录的页面，如果访问的资源没有相关的权限也会跳到这个页面 -->
         <beans:property name="loginFormUrl" value="/sysadmin/user/toLogin"/>
         <beans:property name="useForward" value="true"/>
     </beans:bean>
@@ -78,12 +81,12 @@
 
     <beans:bean id="authenticationFailureHandler"
                 class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
-        <beans:property name="defaultFailureUrl" value="/sysadmin/user/toLgin2"/>
+        <beans:property name="defaultFailureUrl" value="/sysadmin/user/toLogin"/>
         <beans:property name="useForward" value="true"/>
     </beans:bean>
 
     <beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
-        <beans:property name="defaultTargetUrl" value="/sysadmin/user/toLgin"/>
+        <beans:property name="defaultTargetUrl" value="/sysadmin/user/index"/>
     </beans:bean>
 
 
@@ -107,5 +110,5 @@
     <beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
     <!-- 登录调用的service end-->
 
-    <beans:import resource="classpath:applicationContext.xml"/>
+
 </beans:beans>

@@ -14,11 +14,7 @@
     </context-param>
     <!--项目的基本配置属性end-->
 
-    <!-- 监听器-->
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-    <!-- 监听器end-->
+
 
     <!--过滤器的配置项-->
     <filter>
@@ -54,6 +50,11 @@
     </filter-mapping>
     <!--过滤器的url映射配置end-->
 
+    <!-- 监听器-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!-- 监听器end-->
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

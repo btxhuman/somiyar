@@ -1,9 +1,11 @@
 package com.neaghfoz.component.authorize.service.impl;
 
+import com.neaghfoz.component.authorize.model.User;
 import com.neaghfoz.framework.service.BaseServiceImpl;
 import com.neaghfoz.component.authorize.dao.IUserDAO;
 import com.neaghfoz.component.authorize.service.IUserService;
 import com.neaghfoz.framework.hibernate.IBaseDAO;
+import org.apache.commons.lang.StringUtils;
 
 import javax.annotation.Resource;
 
@@ -35,8 +37,14 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         return userDAO.findWitHql(hql);
     }
 
-
-
+    @Override
+    public User findUserByUserName(String userName) {
+        if(StringUtils.isBlank(userName)){
+           return null;
+        }
+        User user = userDAO.findUserByUserName(userName);
+        return user;
+    }
 
 
 }
