@@ -114,7 +114,7 @@
         execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern) throws-pattern?)
     -->
 
-    <aop:config proxy-target-class="true" expose-proxy="true">
+    <aop:config>
     	<aop:advisor advice-ref="txAdvice_baseService" pointcut="execution(* com.neaghfoz.framework.service.BaseServiceImpl.*(..))" order="0"/>
         <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neaghfoz.component..service..*.*(..))" order="1"/>
     </aop:config>
@@ -145,6 +145,7 @@
             <tx:method name="get*" read-only="true" />
             <tx:method name="search*" read-only="true" />
             <tx:method name="find*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="load*" read-only="true" propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
 

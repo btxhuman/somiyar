@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 public class UserDetailsServiceImpl extends BaseServiceImpl implements UserDetailsService {
 
     /**
-     * 系统管理员的ID
+     * 系统管理员的ID,如果登录的用户名等于ADMIN_ID 那么就要默认获取所有权限。
      */
     public static final String ADMIN_ID = "btxhuman";
 
@@ -29,12 +29,11 @@ public class UserDetailsServiceImpl extends BaseServiceImpl implements UserDetai
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        try{
-            User user = userDAO.findUserByUserName(username);
-            System.out.println("user:" + user);
-        }catch (Exception e){
-            e.printStackTrace();
+        User user = userDAO.findUserByUserName(username);
+        if (null == user) {
+            throw new UsernameNotFoundException("找不到用户名为:" + username + "的用户");
         }
+
         return null;
     }
 
