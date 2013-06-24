@@ -37,7 +37,7 @@ public class TestUserServiceImpl {
     public void testSaveObj(){
     	User user = new User();
     	user.setUserName("bibibi2~1");
-    	user.setNickName("neaghfoz");
+    	user.setNickName("中文名字");
     	user.setSex(SexEnum.Man.getValue());
     	user.setStatus(UserStatusEnum.Normal.getValue());
     	user.setCreateTime(new Date());
