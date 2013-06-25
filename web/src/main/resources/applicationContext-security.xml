@@ -71,7 +71,7 @@
                 class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
         <beans:property name="usernameParameter" value="userName"/>
         <beans:property name="passwordParameter" value="password"/>
-        <beans:property name="filterProcessesUrl" value="/sysadmin/user/login" />
+        <beans:property name="filterProcessesUrl" value="/sysadmin/user/login"/>
         <beans:property name="postOnly" value="true"/>
         <beans:property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
         <beans:property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
@@ -85,7 +85,8 @@
         <beans:property name="useForward" value="true"/>
     </beans:bean>
 
-    <beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+    <beans:bean id="authenticationSuccessHandler"
+                class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
         <beans:property name="defaultTargetUrl" value="/sysadmin/user/index"/>
     </beans:bean>
 
@@ -103,10 +104,14 @@
 
     <!-- 登录调用的service以及登录密码加密的策略-->
     <authentication-manager alias="authenticationManager">
-        <authentication-provider user-service-ref="userDetailsService">
-            <password-encoder hash="md5"/>
-        </authentication-provider>
+        <authentication-provider ref="authenticationProvider"/>
     </authentication-manager>
+    <beans:bean id="authenticationProvider"
+                class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <beans:property name="hideUserNotFoundExceptions" value="false"/>
+        <beans:property name="userDetailsService" ref="userDetailsService"/>
+        <beans:property name="passwordEncoder" ref="passwordEncoder"/>
+    </beans:bean>
     <beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
     <!-- 登录调用的service end-->
 

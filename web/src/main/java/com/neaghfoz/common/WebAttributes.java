@@ -7,7 +7,7 @@ package com.neaghfoz.common;
  * Time: 上午9:22
  * Seesion 存放的Key 同存放到这里
  */
-public class SessionKey {
+public class WebAttributes {
     /**
      *后台登录用户的seesionKey
      * */

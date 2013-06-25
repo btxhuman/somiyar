@@ -23,6 +23,7 @@
             <div class="well span5 center login-box">
                 <div class="alert alert-info">
                     请输入用户名和密码
+                    ${SPRING_SECURITY_LAST_EXCEPTION.message}
                 </div>
                 <form class="form-horizontal" action="${path}/sysadmin/user/login" method="post">
                     <fieldset>
