@@ -98,7 +98,7 @@
     </bean>
 
     <!-- Enable @Transactional support  这个注解需要在service层某个方法手动来进行事务的配置-->
-    <!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!-- Enable @AspectJ support -->
     <!-- <aop:aspectj-autoproxy/> -->

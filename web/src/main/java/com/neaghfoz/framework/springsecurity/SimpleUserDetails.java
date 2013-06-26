@@ -1,7 +1,8 @@
-package com.neaghfoz.component.authorize.model;
+package com.neaghfoz.framework.springsecurity;
 
+import com.neaghfoz.component.authorize.model.Permission;
+import com.neaghfoz.component.authorize.model.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
