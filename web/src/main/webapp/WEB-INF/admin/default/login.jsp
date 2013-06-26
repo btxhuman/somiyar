@@ -30,7 +30,7 @@
                         <div class="input-prepend" title="用户名" data-rel="tooltip">
                             <span class="add-on"><i class="icon-user"></i></span>
                             <input autofocus class="input-large span10" name="userName" id="username" type="text"
-                                   value="admin"/>
+                                   value="${sessionScope['SPRING_SECURITY_LAST_USERNAME']}"/>
                         </div>
                         <div class="clearfix"></div>
 

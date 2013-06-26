@@ -103,11 +103,15 @@
     <!-- session 管理策略end-->
 
     <!-- 登录调用的service以及登录密码加密的策略-->
+    <beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <beans:property name="basename" value="classpath:i18n/springsecurity/messages"/>
+    </beans:bean>
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="authenticationProvider"/>
     </authentication-manager>
     <beans:bean id="authenticationProvider"
-                class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+                class="com.neaghfoz.framework.springsecurity.SimpleAuthenticationProvider">
+        <beans:property name="messageSource" ref="messageSource"/>
         <beans:property name="hideUserNotFoundExceptions" value="false"/>
         <beans:property name="userDetailsService" ref="userDetailsService"/>
         <beans:property name="passwordEncoder" ref="passwordEncoder"/>

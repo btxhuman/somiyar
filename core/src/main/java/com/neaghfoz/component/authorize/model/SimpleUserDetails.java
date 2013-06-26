@@ -28,12 +28,6 @@ public class SimpleUserDetails extends org.springframework.security.core.userdet
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     }
 
-    public SimpleUserDetails(User user, List<Permission> permissionList) {
-        super(null, null, null);
-        setUser(user);
-        setPermissionList(permissionList);
-    }
-
     public User getUser() {
         return user;
     }
@@ -50,8 +44,5 @@ public class SimpleUserDetails extends org.springframework.security.core.userdet
         this.permissionList = permissionList;
     }
 
-    @Override
-    public Collection<GrantedAuthority> getAuthorities() {
-        return super.getAuthorities();
-    }
+
 }

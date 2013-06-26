@@ -7,11 +7,13 @@ import com.neaghfoz.component.authorize.model.SimpleUserDetails;
 import com.neaghfoz.component.authorize.model.User;
 import com.neaghfoz.framework.hibernate.IBaseDAO;
 import com.neaghfoz.framework.service.BaseServiceImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,12 +39,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDAO.findUserByUserName(username);
-        List<Permission> list = null;
+        List<Permission> permissionList = null;
+        SimpleUserDetails userDetails = null;
         if (null == user) {
             throw new UsernameNotFoundException("找不到用户名为:" + username + "的用户");
         }
-        list = permissionDAO.getPermissionsByUserId(user.getUserId());
-        SimpleUserDetails userDetails = new SimpleUserDetails(user, list);
+        permissionList = permissionDAO.getPermissionsByUserId(user.getUserId());
+        if (null != permissionList) {
+            List<SimpleGrantedAuthority> authorityList = new ArrayList<SimpleGrantedAuthority>(permissionList.size());
+            for (int i = 0, length = permissionList.size(); i < length; i++) {
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(permissionList.get(i).getPermissionCode());
+                authorityList.add(authority);
+            }
+            userDetails = new SimpleUserDetails(user.getUserName(), user.getPassword(), authorityList);
+        } else {
+            throw new RuntimeException("该用户没有权限登录");
+        }
         return userDetails;
     }
 
