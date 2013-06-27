@@ -23,7 +23,6 @@ public class LocaleFilter extends OncePerRequestFilter {
 
     /**
      * This method looks for a "locale" request parameter. If it finds one, it sets it as the preferred locale
-     * and also configures it to work with JSTL.
      *
      * @param request  the current request
      * @param response the current response

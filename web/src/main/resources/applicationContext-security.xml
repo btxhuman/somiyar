@@ -46,8 +46,8 @@
         <intercept-url pattern="/sysadmin/user/toLogin" access="permitAll" requires-channel="http"/>
         <intercept-url pattern="/sysadmin/user/login" access="permitAll" requires-channel="http"/>
         <intercept-url pattern="/sysadmin/user/logout" access="permitAll" requires-channel="http"/>
-        <intercept-url pattern="/sysadmin/**" access="hasRole('ROLE_user')" requires-channel="http"/>
-        <intercept-url pattern="/**/*.jsp*" access="hasRole('ROLE_user')" requires-channel="http"/>
+        <intercept-url pattern="/sysadmin/**" access="hasRole('ROLE_USER')" requires-channel="http"/>
+        <intercept-url pattern="/**/*.jsp*" access="hasRole('ROLE_USER')" requires-channel="http"/>
         <logout logout-url="/sysadmin/user/logout" logout-success-url="/sysadmin/user/toLogin"
                 delete-cookies="true"/>
         <session-management session-authentication-strategy-ref="sessionControlStrategy"
