@@ -23,13 +23,14 @@
             <div class="well span5 center login-box">
                 <div class="alert alert-info">
                     请输入用户名和密码
+                    ${SPRING_SECURITY_LAST_EXCEPTION.message}
                 </div>
                 <form class="form-horizontal" action="${path}/sysadmin/user/login" method="post">
                     <fieldset>
                         <div class="input-prepend" title="用户名" data-rel="tooltip">
                             <span class="add-on"><i class="icon-user"></i></span>
                             <input autofocus class="input-large span10" name="userName" id="username" type="text"
-                                   value="admin"/>
+                                   value="${sessionScope['SPRING_SECURITY_LAST_USERNAME']}"/>
                         </div>
                         <div class="clearfix"></div>
 

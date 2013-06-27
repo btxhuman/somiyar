@@ -18,7 +18,7 @@ import java.util.List;
 public class PermissionDAOImpl extends BaseDAOImpl<Role> implements IPermissionDAO {
 
     @Override
-    public List<Permission> getPermissionsByUserId(String id) throws Exception {
+    public List<Permission> getPermissionsByUserId(String id){
 
         String subSql = "select distinct t.permission_id from tb_role_per_link t inner join " +
                 "(select role_id from tb_user_role_link where user_id=:userId) tt on tt.role_id = t.role_id";

@@ -14,4 +14,8 @@ public class SysUserAction extends BaseAction {
     public String toLogin() {
         return "toLogin";
     }
+
+    public String index(){
+        return "index";
+    }
 }

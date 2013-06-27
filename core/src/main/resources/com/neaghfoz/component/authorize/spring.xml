@@ -6,8 +6,9 @@
 
     <bean id="userDAO" class="com.neaghfoz.component.authorize.dao.impl.UserDAOImpl" parent="parentSessionFac"/>
     <bean id="roleDAO" class="com.neaghfoz.component.authorize.dao.impl.RoleDAOImpl" parent="parentSessionFac"/>
+    <bean id="permissionDAO" class="com.neaghfoz.component.authorize.dao.impl.PermissionDAOImpl"
+          parent="parentSessionFac"/>
 
     <bean id="userService" class="com.neaghfoz.component.authorize.service.impl.UserServiceImpl"/>
-    <bean id="userDetailsService" class="com.neaghfoz.component.authorize.service.impl.UserDetailsServiceImpl"/>
     <bean id="roleService" class="com.neaghfoz.component.authorize.service.impl.RoleServiceImpl"/>
 </beans>
