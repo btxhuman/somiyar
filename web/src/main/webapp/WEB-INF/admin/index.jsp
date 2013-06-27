@@ -18,7 +18,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="index.jsp"> <img alt="Charisma Logo" src="img/logo20.png"/> <span>Somiyar</span></a>
+            <a class="brand" href="index"> <img alt="Charisma Logo" src="img/logo20.png"/> <span>Somiyar</span></a>
 
             <!-- theme selector starts -->
             <div class="btn-group pull-right theme-container">
