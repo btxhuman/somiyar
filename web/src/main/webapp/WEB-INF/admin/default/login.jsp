@@ -1,10 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    request.setAttribute("path", path);
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <title>管理后台登录页面</title>
-    <jsp:include page="../../../common/charisma-head.jsp"/>
 </head>
 
 <body>
@@ -59,8 +63,6 @@
 
 </div>
 <!--/.fluid-container-->
-<jsp:include page="../../../common/charisma-footer.jsp"/>
-
 
 </body>
 </html>

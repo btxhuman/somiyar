@@ -2,9 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>管理首页</title>
-    <jsp:include page="../../common/charisma-head.jsp"/>
+
 </head>
 
 <body>
@@ -195,9 +193,6 @@
 </footer>
 
 </div>
-<!--/.fluid-container-->
-<jsp:include page="../../common/charisma-footer.jsp"/>
-
 
 </body>
 </html>
