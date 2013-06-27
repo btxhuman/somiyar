@@ -104,7 +104,7 @@
 
     <!-- 登录调用的service以及登录密码加密的策略-->
     <beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <beans:property name="basename" value="classpath:i18n/springsecurity/messages_en_US"/>
+        <beans:property name="basename" value="classpath:i18n/springsecurity/messages"/>
     </beans:bean>
     <beans:bean id="userDetailsService" class="com.neaghfoz.framework.springsecurity.UserDetailsServiceImpl"/>
     <beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>

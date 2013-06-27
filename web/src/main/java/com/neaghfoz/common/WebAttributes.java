@@ -11,5 +11,7 @@ public class WebAttributes {
     /**
      *后台登录用户的seesionKey
      * */
-    public static final String SYSADMIN_LOGIN_USER = "sysadmin_login_user";
+    public static final String SYSADMIN_LOGIN_USER = "SYSADMIN_LOGIN_USER";
+
+    public static final String PREFERRED_LOCALE_KEY = "PREFERRED_LOCALE_KEY";
 }

@@ -2,6 +2,7 @@ package com.neaghfoz.framework.base;
 
 //import com.neaghfoz.Constants;
 
+import com.neaghfoz.common.WebAttributes;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -50,12 +51,12 @@ public class LocaleFilter extends OncePerRequestFilter {
         HttpSession session = request.getSession(false);
 
         if (session != null) {
-           /* if (preferredLocale == null) {
-                preferredLocale = (Locale) session.getAttribute(Constants.PREFERRED_LOCALE_KEY);
+            if (preferredLocale == null) {
+                preferredLocale = (Locale) session.getAttribute(WebAttributes.PREFERRED_LOCALE_KEY);
             } else {
-                session.setAttribute(Constants.PREFERRED_LOCALE_KEY, preferredLocale);
-                Config.set(session, Config.FMT_LOCALE, preferredLocale);
-            }*/
+                session.setAttribute(WebAttributes.PREFERRED_LOCALE_KEY, preferredLocale);
+                //Config.set(session, Config.FMT_LOCALE, preferredLocale);
+            }
             if (preferredLocale != null && !(request instanceof LocaleRequestWrapper)) {
                 request = new LocaleRequestWrapper(request, preferredLocale);
                 LocaleContextHolder.setLocale(preferredLocale);
