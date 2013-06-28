@@ -4,6 +4,8 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:cache="http://www.springframework.org/schema/cache"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         	http://www.springframework.org/schema/context
@@ -11,7 +13,9 @@
         	http://www.springframework.org/schema/tx
         	http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
         	http://www.springframework.org/schema/aop
-        	http://www.springframework.org/schema/aop/spring-aop.xsd"
+        	http://www.springframework.org/schema/aop/spring-aop.xsd
+        	http://www.springframework.org/schema/cache
+        	http://www.springframework.org/schema/cache/spring-cache-3.1.xsd"
        default-lazy-init="true">
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -162,6 +166,18 @@
 	<bean abstract="true" id="parentSessionFac">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+
+    <!-- 启用缓存注解功能，这个是必须的，否则注解不会生效，另外，该注解一定要声明在spring主配置文件中才会生效 -->
+    <cache:annotation-driven/>
+    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+        <property name="caches">
+            <set>
+                <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="default"/>
+                <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="loginCache"/>
+            </set>
+        </property>
+    </bean>
+
     <!-- 添加spring xml 的配置文件 -->
     <!-- <import resource="classpath:cn/com/do1/dqdp/core/**/*-spring.xml"/> -->
     <!-- <import resource="classpath:cn/com/do1/common/**/*-spring.xml"/> -->

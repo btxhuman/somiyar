@@ -174,10 +174,12 @@ public abstract class BaseDAOImpl<T extends Serializable> implements
 			Property... propertys) {
 		Criteria criteria = getSession().createCriteria(className);
 		// 查询条件
-		for (Property property : propertys) {
-			if (property != null)
-				criteria.add(property.getCriterion());
-		}
+        if(null != propertys){
+            for (Property property : propertys) {
+                if (property != null)
+                    criteria.add(property.getCriterion());
+            }
+        }
 		// 分页
 		if (pager != null) {
 			criteria.setProjection(Projections.rowCount());

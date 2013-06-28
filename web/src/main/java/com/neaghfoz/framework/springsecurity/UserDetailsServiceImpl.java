@@ -4,6 +4,8 @@ import com.neaghfoz.component.authorize.dao.IPermissionDAO;
 import com.neaghfoz.component.authorize.dao.IUserDAO;
 import com.neaghfoz.component.authorize.model.Permission;
 import com.neaghfoz.component.authorize.model.User;
+import com.neaghfoz.framework.hibernate.Order;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -40,8 +42,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Resource(name = "messageSource")
     private MessageSource messageSource;
 
+
+    /**
+     * @param  username 登录用户的用户名
+     *  将登录用户的信息缓存起来
+     ***/
     @Override
     @Transactional(readOnly = true, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    @Cacheable(value = "loginCache", key = "#username + 'loadUserByUsername'")
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDAO.findUserByUserName(username);
         List<Permission> permissionList = null;
@@ -49,7 +57,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (null == user) {
             throw new UsernameNotFoundException(messageSource.getMessage("JdbcDaoImpl.notFound", new String[]{username}, LocaleContextHolder.getLocale()));
         }
-        permissionList = permissionDAO.getPermissionsByUserId(user.getUserId());
+        if (ADMIN_ID.equals(username)) {
+            permissionList = permissionDAO.findAll((Order) null, null);
+        } else {
+            permissionList = permissionDAO.getPermissionsByUserId(user.getUserId());
+        }
         if (null != permissionList) {
             List<SimpleGrantedAuthority> authorityList = new ArrayList<SimpleGrantedAuthority>(permissionList.size());
             for (int i = 0, length = permissionList.size(); i < length; i++) {
