@@ -2,9 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>管理首页</title>
-    <jsp:include page="../../common/charisma-head.jsp"/>
+
 </head>
 
 <body>
@@ -18,7 +16,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="index.jsp"> <img alt="Charisma Logo" src="${path}/img/logo20.png"/> <span>Somiyar</span></a>
+            <a class="brand" href="index"> <img alt="Charisma Logo" src="img/logo20.png"/> <span>Somiyar</span></a>
 
             <!-- theme selector starts -->
             <div class="btn-group pull-right theme-container">
@@ -195,9 +193,6 @@
 </footer>
 
 </div>
-<!--/.fluid-container-->
-<jsp:include page="../../common/charisma-footer.jsp"/>
-
 
 </body>
 </html>

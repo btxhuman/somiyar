@@ -36,12 +36,12 @@ public class TestUserServiceImpl {
     @Test
     public void testSaveObj(){
     	User user = new User();
-    	user.setUserName("bibibi2~1");
-    	user.setNickName("neaghfoz");
+    	user.setUserName("admin");
+    	user.setNickName("管理员");
     	user.setSex(SexEnum.Man.getValue());
     	user.setStatus(UserStatusEnum.Normal.getValue());
     	user.setCreateTime(new Date());
-    	user.setPassword("dddd");
+    	user.setPassword("123");
     	userService.saveObj(user);
     }
 
