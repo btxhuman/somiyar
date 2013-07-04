@@ -1,5 +1,6 @@
 package com.neaghfoz.framework.springsecurity;
 
+import com.neaghfoz.common.Config;
 import com.neaghfoz.component.authorize.dao.IPermissionDAO;
 import com.neaghfoz.component.authorize.dao.IUserDAO;
 import com.neaghfoz.component.authorize.model.Permission;

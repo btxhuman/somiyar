@@ -7,10 +7,10 @@
 	<constant name="struts.i18n.encoding" value="UTF-8" />
  	<constant name="struts.action.extension" value="do" />
 <!-- 	<constant name="struts.objectFactory" value="spring" /> -->
-<!-- 	<constant name="struts.custom.i18n.resources" value="ApplicationResources,errors" /> -->
+ 	<constant name="struts.custom.i18n.resources" value="ApplicationResources,errors" />
 
 	<!-- 后台管理的struts package 可以向里面添加拦截器什么的 -->
-	<package name="admin-default" extends="struts-default">
+	<package name="admin-default" extends="struts-default" namespace="/sysadmin" >
 
 	</package>
 

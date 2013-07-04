@@ -6,9 +6,9 @@
     
     <!-- 
     	package继承package:admin-default(后台管理的Action),
-    	name的命名规则是 name=componentName+".admin";namespace="/sysadmin"
+    	name的命名规则是 name=componentName+".admin";namespace="/sysadmin"(默认的)
     -->
-    <package name="authorize.admin" namespace="/sysadmin" extends="admin-default">
+    <package name="authorize.admin" extends="admin-default">
         <action name="user_*" class="com.neaghfoz.component.authorize.action.SysUserAction" method="{1}">
             <result name="toLogin">/WEB-INF/admin/default/login.jsp</result>
             <result name="index">/WEB-INF/admin/index.jsp</result>
