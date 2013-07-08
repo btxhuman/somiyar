@@ -8,7 +8,7 @@ import java.util.Properties;
  * User: btxhuman
  * Date: 13-7-4
  * Time: 下午5:56
- * To change this template use File | Settings | File Templates.
+ *  获取配置文件的信息
  */
 public class Config {
 
