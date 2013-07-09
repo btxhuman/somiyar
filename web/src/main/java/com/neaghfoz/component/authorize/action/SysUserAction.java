@@ -1,6 +1,7 @@
 package com.neaghfoz.component.authorize.action;
 
 import com.neaghfoz.component.authorize.service.IUserService;
+import com.neaghfoz.framework.base.PermissionAnnotation;
 import com.neaghfoz.framework.struts.BaseAction;
 
 import javax.annotation.Resource;
@@ -15,7 +16,8 @@ public class SysUserAction extends BaseAction {
         return "toLogin";
     }
 
-    public String index(){
+    @PermissionAnnotation(value = "{aa}", matchAll = false)
+    public String index() {
         return "index";
     }
 }
