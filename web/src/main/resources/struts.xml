@@ -3,23 +3,30 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<constant name="struts.devMode" value="true" />
-	<constant name="struts.i18n.encoding" value="UTF-8" />
- 	<constant name="struts.action.extension" value="do" />
-<!-- 	<constant name="struts.objectFactory" value="spring" /> -->
- 	<constant name="struts.custom.i18n.resources" value="ApplicationResources,errors" />
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.action.extension" value="do"/>
+    <!-- 	<constant name="struts.objectFactory" value="spring" /> -->
+    <constant name="struts.custom.i18n.resources" value="ApplicationResources,errors"/>
 
-	<!-- 后台管理的struts package 可以向里面添加拦截器什么的 -->
-	<package name="admin-default" extends="struts-default" namespace="/sysadmin" >
+    <!-- 后台管理的struts package 可以向里面添加拦截器什么的 -->
+    <package name="admin-default" extends="struts-default" namespace="/sysadmin">
+        <interceptors>
+            <interceptor name="permissionInterceptor" class="com.neaghfoz.framework.struts.PermissionInterceptor"/>
+            <interceptor-stack name="admin-stack">
+                <interceptor-ref name="permissionInterceptor"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="admin-stack"/>
+    </package>
 
-	</package>
 
+    <!-- 前台显示页面的struts package -->
+    <package name="default" extends="struts-default">
 
-	<!-- 前台显示页面的struts package -->
-	<package name="default" extends="struts-default">
+    </package>
 
-	</package>
-
-	<!-- 引入其他包里面的struts配置文件 -->
-	<include file="com/neaghfoz/component/authorize/struts.xml" />
+    <!-- 引入其他包里面的struts配置文件 -->
+    <include file="com/neaghfoz/component/authorize/struts.xml"/>
 </struts>

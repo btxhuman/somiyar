@@ -16,8 +16,12 @@ public class SysUserAction extends BaseAction {
         return "toLogin";
     }
 
-    @PermissionAnnotation(value = "{aa}", matchAll = false)
     public String index() {
         return "index";
+    }
+
+    @PermissionAnnotation(value = {"ROLE_USER", "test2"}, matchAll = false)
+    public String test() {
+        return "test";
     }
 }

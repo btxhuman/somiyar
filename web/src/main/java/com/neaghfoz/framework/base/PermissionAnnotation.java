@@ -15,7 +15,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PermissionAnnotation {
+    //要匹配的权限码
     public abstract String[] value();
-
+    //是否匹配所有
     public boolean matchAll() default true;
 }
