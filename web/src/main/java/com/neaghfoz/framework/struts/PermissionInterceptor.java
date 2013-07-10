@@ -58,6 +58,7 @@ public class PermissionInterceptor implements Interceptor {
                 }else{
                     //没有权限访问Action返回403错误页面
                     response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                    return null;
                 }
             }
         }

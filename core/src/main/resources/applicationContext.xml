@@ -173,6 +173,7 @@
         <property name="caches">
             <set>
                 <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="default"/>
+                <!--这个缓存是特意给登录留下的-->
                 <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="loginCache"/>
             </set>
         </property>
