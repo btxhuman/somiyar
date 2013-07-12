@@ -57,14 +57,11 @@ public class SysAuthorizeAction extends BaseAction {
                 Attribute attribute = temp.attribute("permission");
                 if (attribute != null) {
                     String permissionCode = attribute.getText();
-                    if (StringUtils.isNotBlank(permissionCode)) {
-                        System.out.println(temp.attribute("name").getText() + ":" + aus.contains(permissionCode));
-                        if (!aus.contains(permissionCode)) {
-                            temp.getParent().remove(temp);
-                            continue;
-                        }else{
-                            iteratorAll(temp);
-                        }
+                    System.out.println(temp.attribute("name").getText() + ":" + aus.contains(permissionCode));
+                    if (StringUtils.isNotBlank(permissionCode) && !aus.contains(permissionCode)) {
+                        temp.getParent().remove(temp);
+                    }else{
+                        iteratorAll(temp);
                     }
                 } else {
                     iteratorAll(temp);
