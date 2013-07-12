@@ -29,7 +29,7 @@
                     请输入用户名和密码
                     ${SPRING_SECURITY_LAST_EXCEPTION.message}
                 </div>
-                <form class="form-horizontal" action="${path}/sysadmin/user/login" method="post">
+                <form class="form-horizontal" action="${path}/sysadmin/login" method="post">
                     <fieldset>
                         <div class="input-prepend" title="用户名" data-rel="tooltip">
                             <span class="add-on"><i class="icon-user"></i></span>

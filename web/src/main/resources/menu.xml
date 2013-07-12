@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menus>
+    <menu name="系统管理" permission="systemManage" icon="/themes/default/images/menu/icon13.png">
+        <menu name="用户管理" link="/sysadmin/" permission=""/>
+        <menu name="角色管理" link="/jsp/component/systemmgr/role2/roleList.jsp" permission=""/>
+        <menu name="权限管理" link=""/>
+    </menu>
+</menus>

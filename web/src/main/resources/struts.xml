@@ -19,6 +19,16 @@
             </interceptor-stack>
         </interceptors>
         <default-interceptor-ref name="admin-stack"/>
+        <default-class-ref class="com.neaghfoz.component.authorize.action.SysAuthorizeAction"/>
+        <action name="index" method="index">
+            <result>/WEB-INF/admin/index.jsp</result>
+        </action>
+        <action name="toLogin" method="toLogin">
+            <result>/WEB-INF/admin/default/login.jsp</result>
+        </action>
+        <action name="logout" method="logout">
+            <result>/WEB-INF/admin/default/login.jsp</result>
+        </action>
     </package>
 
 
