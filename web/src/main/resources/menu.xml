@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menus>
-    <menu name="系统管理" permission="systemManage" icon="/themes/default/images/menu/icon13.png">
-        <menu name="用户管理" link="/sysadmin/" permission=""/>
-        <menu name="角色管理" link="/jsp/component/systemmgr/role2/roleList.jsp" permission=""/>
-        <menu name="权限管理" link=""/>
+    <menu name="系统管理" permission="1" icon="/themes/default/images/menu/icon13.png">
+        <menu name="用户管理" link="/sysadmin/" permission="2"/>
+        <menu name="角色管理" link="/jsp/component/systemmgr/role2/roleList.jsp" permission="3"/>
+        <menu name="权限管理" link="" permission="4"/>
+    </menu>
+    <menu name="XXX_1" permission="5" icon="/themes/default/images/menu/icon13.png">
+        <menu name="XXX_2" link="/sysadmin/" permission="6"/>
+        <menu name="XXX_3" link="/jsp/component/systemmgr/role2/roleList.jsp" permission="7"/>
+        <menu name="XXX_4" link="/sysadmin/" permission="8"/>
     </menu>
 </menus>
