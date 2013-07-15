@@ -86,7 +86,7 @@
     </beans:bean>
 
     <beans:bean id="authenticationSuccessHandler"
-                class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+                class="com.neaghfoz.framework.springsecurity.LoginSuccessHandler">
         <beans:property name="defaultTargetUrl" value="/sysadmin/index"/>
     </beans:bean>
 
@@ -120,5 +120,5 @@
     </beans:bean>
     <!-- 登录调用的service end-->
 
-
+    <beans:bean id="webContext" class="com.neaghfoz.common.WebContext"/>
 </beans:beans>

@@ -120,11 +120,12 @@
 
     <!-- DAO-->
     <bean id="baseDAOAdvice" class="com.neaghfoz.framework.base.BaseDAOAdvice" />
-    <aop:config>
+    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
+    <aop:config proxy-target-class="true">
     	<aop:advisor advice-ref="txAdvice_baseService" pointcut="execution(* com.neaghfoz.framework.service.BaseServiceImpl.*(..))" order="0"/>
         <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neaghfoz.component..service..*.*(..))" order="1"/>
     </aop:config>
-    <aop:config>
+    <aop:config proxy-target-class="true">
         <aop:pointcut id="baseDAOPointCut" expression="execution(* com.neaghfoz.framework.hibernate.BaseDAOImpl.*(..))" />
         <aop:pointcut id="componentDAOPointCut" expression="execution(* com.neaghfoz.component..dao.impl.*.*(..))" />
         <aop:aspect  id="aspectDAO" ref="baseDAOAdvice">

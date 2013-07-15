@@ -1,5 +1,6 @@
 package com.neaghfoz.framework.struts;
 
+import com.neaghfoz.common.WebContext;
 import com.neaghfoz.common.util.HttpUtil;
 import com.neaghfoz.framework.base.PermissionAnnotation;
 import com.neaghfoz.framework.springsecurity.SimpleUserDetails;
@@ -36,26 +37,24 @@ public class PermissionInterceptor implements Interceptor {
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object obj = authentication == null ? null : authentication.getPrincipal();
+        SimpleUserDetails userDetails = WebContext.getUserDetails();
         PermissionAnnotation permissionAnnotation = getPermissions(invocation);
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpServletResponse response = ServletActionContext.getResponse();
-        if (obj instanceof SimpleUserDetails && null != permissionAnnotation) {
-            SimpleUserDetails userDetails = (SimpleUserDetails) obj;
+        if (null != userDetails && null != permissionAnnotation) {
             Collection<GrantedAuthority> authorities = userDetails.getAuthorities();
             boolean matchResult = false;
             //匹配所有权限
             if (permissionAnnotation.matchAll()) {
-                matchResult = matchAllPermission(permissionAnnotation.value(),authorities);
+                matchResult = matchAllPermission(permissionAnnotation.value(), authorities);
             } else { //匹配某一个权限即可
                 matchResult = matchAnyPermission(permissionAnnotation.value(), authorities);
             }
-            if(!matchResult){
+            if (!matchResult) {
                 //判断是否ajax请求
-                if(HttpUtil.isAjaxRequest(request)){
+                if (HttpUtil.isAjaxRequest(request)) {
 
-                }else{
+                } else {
                     //没有权限访问Action返回403错误页面
                     response.sendError(HttpServletResponse.SC_FORBIDDEN);
                     return null;
@@ -78,15 +77,15 @@ public class PermissionInterceptor implements Interceptor {
     }
 
     /**
-     *@param permissions 注解中获得权限码
-     *@param authorities 用户所用的权限码
-     **/
-    private Boolean matchAllPermission(String[] permissions,Collection<GrantedAuthority> authorities){
+     * @param permissions 注解中获得权限码
+     * @param authorities 用户所用的权限码
+     */
+    private Boolean matchAllPermission(String[] permissions, Collection<GrantedAuthority> authorities) {
         Iterator<GrantedAuthority> iterator = authorities.iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             GrantedAuthority grantedAuthority = iterator.next();
-            for (String string:permissions){
-                if(!string.equals(grantedAuthority.getAuthority())){
+            for (String string : permissions) {
+                if (!string.equals(grantedAuthority.getAuthority())) {
                     return false;
                 }
             }
@@ -95,15 +94,15 @@ public class PermissionInterceptor implements Interceptor {
     }
 
     /**
-     *@param permissions 注解中获得权限码
-     *@param authorities 用户所用的权限码
-     **/
-    private Boolean matchAnyPermission(String[] permissions,Collection<GrantedAuthority> authorities){
+     * @param permissions 注解中获得权限码
+     * @param authorities 用户所用的权限码
+     */
+    private Boolean matchAnyPermission(String[] permissions, Collection<GrantedAuthority> authorities) {
         Iterator<GrantedAuthority> iterator = authorities.iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             GrantedAuthority grantedAuthority = iterator.next();
-            for (String string:permissions){
-                if(string.equals(grantedAuthority.getAuthority())){
+            for (String string : permissions) {
+                if (string.equals(grantedAuthority.getAuthority())) {
                     return true;
                 }
             }

@@ -1,5 +1,7 @@
 package com.neaghfoz.component.authorize.action;
 
+import com.neaghfoz.common.WebContext;
+import com.neaghfoz.component.authorize.dao.impl.PermissionDAOImpl;
 import com.neaghfoz.framework.base.PermissionAnnotation;
 import com.neaghfoz.framework.struts.BaseAction;
 import org.apache.commons.lang3.StringUtils;
@@ -38,18 +40,26 @@ public class SysAuthorizeAction extends BaseAction {
     }
 
     public static void main(String[] args) throws DocumentException {
+        Collection<String> aus_1 = new ArrayList<String>();
+        aus_1.add("2");
+        aus_1.add("5");
+        Collection<String> aus_2 = new ArrayList<String>();
+        aus_2.add("1");
+        aus_2.add("2");
+        aus_2.add("5");
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("menu.xml");
         SAXReader saxReader = new SAXReader();
         Document document = saxReader.read(is);
-        Element root = document.getRootElement();
-        iteratorAll(root);
-        System.out.println(document.asXML());
+        Element root1 = (Element) document.getRootElement().clone();
+        iteratorAll(aus_1,root1);
+        Element root2 = (Element) document.getRootElement().clone();
+        iteratorAll(aus_2,root2);
+        System.out.println(root1.asXML());
+        System.out.println(root2.asXML());
     }
 
-    private static void iteratorAll(Element element) {
-        Collection<String> aus = new ArrayList<String>();
-        aus.add("2");
-        aus.add("5");
+    private static void iteratorAll(Collection<String> aus,Element element) {
+
         List<Element> list = element.elements();
         if (null != list && list.size() != 0) {
             for (Iterator<Element> it = element.elementIterator(); it.hasNext(); ) {
@@ -57,14 +67,14 @@ public class SysAuthorizeAction extends BaseAction {
                 Attribute attribute = temp.attribute("permission");
                 if (attribute != null) {
                     String permissionCode = attribute.getText();
-                    System.out.println(temp.attribute("name").getText() + ":" + aus.contains(permissionCode));
+//                    System.out.println(temp.attribute("name").getText() + ":" + aus.contains(permissionCode));
                     if (StringUtils.isNotBlank(permissionCode) && !aus.contains(permissionCode)) {
                         temp.getParent().remove(temp);
                     }else{
-                        iteratorAll(temp);
+                        iteratorAll(aus,temp);
                     }
                 } else {
-                    iteratorAll(temp);
+                    iteratorAll(aus,temp);
                 }
 
             }

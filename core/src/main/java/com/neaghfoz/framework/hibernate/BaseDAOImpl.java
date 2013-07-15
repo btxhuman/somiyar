@@ -2,6 +2,7 @@ package com.neaghfoz.framework.hibernate;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +24,19 @@ public abstract class BaseDAOImpl<T extends Serializable> implements
 
 	@SuppressWarnings("unchecked")
 	public BaseDAOImpl() {
-		className = (Class<T>) ((ParameterizedType) getClass()
-				.getGenericSuperclass()).getActualTypeArguments()[0];
-		log = Logger.getLogger("sqlLog");
+        Class clazz = getClass();
+        while (clazz != Object.class) {
+            Type t = clazz.getGenericSuperclass();
+            if (t instanceof ParameterizedType) {
+                Type[] args = ((ParameterizedType) t).getActualTypeArguments();
+                if (args[0] instanceof Class) {
+                    this.className = (Class<T>) args[0];
+                    break;
+                }
+            }
+            clazz = clazz.getSuperclass();
+        }
+        log = Logger.getLogger("sqlLog");
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

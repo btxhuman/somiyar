@@ -14,4 +14,9 @@ public class WebAttributes {
     public static final String SYSADMIN_LOGIN_USER = "SYSADMIN_LOGIN_USER";
 
     public static final String PREFERRED_LOCALE_KEY = "PREFERRED_LOCALE_KEY";
+
+    /**
+     *后台登录用户的菜单选项
+     * */
+    public static final String SYSADMIN_USER_MENU = "SYSADMIN_USER_MENU";
 }

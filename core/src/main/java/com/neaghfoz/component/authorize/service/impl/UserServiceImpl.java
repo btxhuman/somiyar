@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * To change this template use File | Settings | File Templates.
  */
 public class UserServiceImpl extends BaseServiceImpl implements IUserService {
-	
+
     @Resource
     private IUserDAO userDAO;
     
