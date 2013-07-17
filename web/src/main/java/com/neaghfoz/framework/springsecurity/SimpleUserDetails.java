@@ -45,5 +45,8 @@ public class SimpleUserDetails extends org.springframework.security.core.userdet
         this.permissionList = permissionList;
     }
 
-
+    @Override
+    public String getPassword() {
+        return user.getPassword();
+    }
 }

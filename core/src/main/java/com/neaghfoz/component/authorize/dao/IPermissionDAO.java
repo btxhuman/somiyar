@@ -1,6 +1,7 @@
 package com.neaghfoz.component.authorize.dao;
 
 import com.neaghfoz.component.authorize.model.Permission;
+import com.neaghfoz.framework.hibernate.IBaseDAO;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Time: 上午9:21
  * To change this template use File | Settings | File Templates.
  */
-public interface IPermissionDAO {
+public interface IPermissionDAO extends IBaseDAO<Permission>{
 
     /**
      * @param id

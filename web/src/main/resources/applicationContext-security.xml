@@ -43,16 +43,16 @@
         <custom-filter ref="sessionFilter" after="FORM_LOGIN_FILTER"/>
         <custom-filter ref="concurrentSessionFilter" position="CONCURRENT_SESSION_FILTER"/>-->
         <custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER"/>
-        <intercept-url pattern="/sysadmin/user/toLogin" access="permitAll" requires-channel="http"/>
-        <intercept-url pattern="/sysadmin/user/login" access="permitAll" requires-channel="http"/>
-        <intercept-url pattern="/sysadmin/user/logout" access="permitAll" requires-channel="http"/>
+        <intercept-url pattern="/sysadmin/toLogin" access="permitAll" requires-channel="http"/>
+        <intercept-url pattern="/sysadmin/login" access="permitAll" requires-channel="http"/>
+        <intercept-url pattern="/sysadmin/logout" access="permitAll" requires-channel="http"/>
         <intercept-url pattern="/sysadmin/**" access="hasRole('ROLE_USER')" requires-channel="http"/>
         <intercept-url pattern="/**/*.jsp*" access="hasRole('ROLE_USER')" requires-channel="http"/>
-        <logout logout-url="/sysadmin/user/logout" logout-success-url="/sysadmin/user/toLogin"
+        <logout logout-url="/sysadmin/logout" logout-success-url="/sysadmin/toLogin"
                 delete-cookies="true"/>
         <session-management session-authentication-strategy-ref="sessionControlStrategy"
-                            invalid-session-url="/sysadmin/user/toLogin"
-                            session-authentication-error-url="/sysadmin/user/toLogin"/>
+                            invalid-session-url="/sysadmin/toLogin"
+                            session-authentication-error-url="/sysadmin/toLogin"/>
         <port-mappings>
             <port-mapping http="${http.port}" https="8443"/>
         </port-mappings>
@@ -62,7 +62,7 @@
     <beans:bean id="authenticationProcessingFilterEntryPoint"
                 class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
         <!--loginFormUrl 是登录的页面，如果访问的资源没有相关的权限也会跳到这个页面 -->
-        <beans:property name="loginFormUrl" value="/sysadmin/user/toLogin"/>
+        <beans:property name="loginFormUrl" value="/sysadmin/toLogin"/>
         <beans:property name="useForward" value="true"/>
     </beans:bean>
 
@@ -71,7 +71,7 @@
                 class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
         <beans:property name="usernameParameter" value="userName"/>
         <beans:property name="passwordParameter" value="password"/>
-        <beans:property name="filterProcessesUrl" value="/sysadmin/user/login"/>
+        <beans:property name="filterProcessesUrl" value="/sysadmin/login"/>
         <beans:property name="postOnly" value="true"/>
         <beans:property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
         <beans:property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
@@ -81,13 +81,13 @@
 
     <beans:bean id="authenticationFailureHandler"
                 class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
-        <beans:property name="defaultFailureUrl" value="/sysadmin/user/toLogin"/>
+        <beans:property name="defaultFailureUrl" value="/sysadmin/toLogin"/>
         <beans:property name="useForward" value="true"/>
     </beans:bean>
 
     <beans:bean id="authenticationSuccessHandler"
-                class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
-        <beans:property name="defaultTargetUrl" value="/sysadmin/user/index"/>
+                class="com.neaghfoz.framework.springsecurity.LoginSuccessHandler">
+        <beans:property name="defaultTargetUrl" value="/sysadmin/index"/>
     </beans:bean>
 
 
@@ -120,5 +120,5 @@
     </beans:bean>
     <!-- 登录调用的service end-->
 
-
+    <beans:bean id="webContext" class="com.neaghfoz.common.WebContext"/>
 </beans:beans>

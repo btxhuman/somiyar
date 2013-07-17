@@ -20,11 +20,20 @@
     </rule>
 
     <rule>
-        <note>后台的管理地址的重写</note>
-        <from>^/sysadmin/(.*)/(.*)$</from>
+        <note>后台的管理地址的重写（一级地址）</note>
+        <from>^/sysadmin/*(\w*)/*$</from>
+        <to>/sysadmin/$1.do</to>
+    </rule>
+    <rule>
+        <note>后台的管理地址的重写（二级地址）</note>
+        <from>^/sysadmin/*(\w*)/*(\w*)/*$</from>
         <to>/sysadmin/$1_$2.do</to>
     </rule>
-
+    <rule>
+        <note>后台的管理地址的重写（三级地址）</note>
+        <from>^/sysadmin/*(\w*)/*(\w*)/*(\w*)/*$</from>
+        <to>/sysadmin/$1/$2_$3.do</to>
+    </rule>
     <outbound-rule>
         <note>
             The outbound-rule specifies that when response.encodeURL is called (if you are using JSTL c:url)
