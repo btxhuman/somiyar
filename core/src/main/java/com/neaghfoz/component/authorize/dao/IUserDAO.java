@@ -1,7 +1,7 @@
 package com.neaghfoz.component.authorize.dao;
 
 import com.neaghfoz.component.authorize.model.User;
-import com.neaghfoz.framework.hibernate.IBaseDAO;
+import com.neaghfoz.framework.jdbc.IBaseDAO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,7 +10,7 @@ import com.neaghfoz.framework.hibernate.IBaseDAO;
  * Time: 上午9:18
  * To change this template use File | Settings | File Templates.
  */
-public interface IUserDAO extends IBaseDAO<User>{
+public interface IUserDAO extends IBaseDAO{
     /**
      * 通过用户名来获取用户的信息
      *

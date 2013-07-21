@@ -1,6 +1,6 @@
 package com.neaghfoz.framework.service;
 
-import com.neaghfoz.framework.hibernate.IBaseDAO;
+import com.neaghfoz.framework.jdbc.IBaseDAO;
 
 
 public abstract class BaseServiceImpl implements IBaseService{
@@ -9,16 +9,17 @@ public abstract class BaseServiceImpl implements IBaseService{
 	public abstract IBaseDAO getBaseDAO();
 	
 	public Object saveObj(Object entity){
-		getBaseDAO().save(entity);
-		return entity;
+		/*getBaseDAO().save(entity);
+		return entity;*/
+        return null;
 	}
 	
 	public void updateObj(Object entity){
-		getBaseDAO().update(entity);
+		//getBaseDAO().update(entity);
 	}
 	
 	public void deleteObj(Object entity){
-		getBaseDAO().delete(entity);
+		//getBaseDAO().delete(entity);
 	}
 	
 }

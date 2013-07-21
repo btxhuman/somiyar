@@ -1,11 +1,13 @@
 package com.neaghfoz.component.demo.model;
 
+import com.neaghfoz.framework.jdbc.BaseModel;
+
 import java.io.Serializable;
 
-public class Demo1PO implements Serializable{
-    public String demo1Id;
+public class Demo1PO implements Serializable,BaseModel {
+    private String demo1Id;
 
-	public String name;
+    private String name;
 
     public String getDemo1Id() {
         return demo1Id;
@@ -16,10 +18,27 @@ public class Demo1PO implements Serializable{
     }
 
     public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
-	}
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getTableName() {
+        return "tb_demo1";
+    }
+
+    @Override
+    public void setPrimaryKeyValue(Object primaryKeyValue) {
+       if(primaryKeyValue instanceof String){
+           setDemo1Id(primaryKeyValue.toString());
+       }
+    }
+
+    @Override
+    public String getPrimaryKeyName() {
+        return "demo1_id";
+    }
 }

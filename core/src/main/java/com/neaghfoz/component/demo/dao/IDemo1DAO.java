@@ -1,7 +1,7 @@
 package com.neaghfoz.component.demo.dao;
 
 import com.neaghfoz.component.demo.model.Demo1PO;
-import com.neaghfoz.framework.hibernate.IBaseDAO;
+import com.neaghfoz.framework.jdbc.IBaseDAO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,7 +10,7 @@ import com.neaghfoz.framework.hibernate.IBaseDAO;
  * Time: 下午2:41
  * To change this template use File | Settings | File Templates.
  */
-public interface IDemo1DAO extends IBaseDAO<Demo1PO>{
+public interface IDemo1DAO extends IBaseDAO{
     
     public Demo1PO getDemo1po(String id);
 }

@@ -1,6 +1,8 @@
 package com.neaghfoz.component.authorize.model;
 
 
+import com.neaghfoz.framework.jdbc.BaseModel;
+
 import java.io.Serializable;
 import java.util.Set;
 
@@ -11,11 +13,11 @@ import java.util.Set;
  * Time: 上午9:30
  * To change this template use File | Settings | File Templates.
  */
-public class Role implements Serializable{
+public class Role implements Serializable,BaseModel{
     private String roleId;
     private String roleName;
-    private Set<User> userSet;
-    private Set<Permission> permissionSet;
+/*    private Set<User> userSet;
+    private Set<Permission> permissionSet;*/
 
     public Role(){
         super();
@@ -41,7 +43,7 @@ public class Role implements Serializable{
         this.roleName = roleName;
     }
 
-    public Set<User> getUserSet() {
+   /* public Set<User> getUserSet() {
         return userSet;
     }
 
@@ -55,5 +57,22 @@ public class Role implements Serializable{
 
     public void setPermissionSet(Set<Permission> permissionSet) {
         this.permissionSet = permissionSet;
+    }*/
+
+    @Override
+    public String getTableName() {
+        return "tb_role";
+    }
+
+    @Override
+    public void setPrimaryKeyValue(Object primaryKeyValue) {
+        if(primaryKeyValue instanceof String){
+            setRoleId(primaryKeyValue.toString());
+        }
+    }
+
+    @Override
+    public String getPrimaryKeyName() {
+        return "role_id";
     }
 }

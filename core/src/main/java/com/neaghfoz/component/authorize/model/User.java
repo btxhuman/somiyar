@@ -1,6 +1,8 @@
 package com.neaghfoz.component.authorize.model;
 
 
+import com.neaghfoz.framework.jdbc.BaseModel;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -12,7 +14,7 @@ import java.util.Set;
  * Time: 上午9:17
  * To change this template use File | Settings | File Templates.
  */
-public class User implements Serializable {
+public class User implements Serializable,BaseModel{
     private String userId; //用户ID
     private String userName; //登录的用户名
     private Integer sex; //性别
@@ -22,7 +24,7 @@ public class User implements Serializable {
     private Integer status; //用户状态
     private Date createTime; //创建时间
     private String password; //用户密码
-    private Set<Role> roleSet;
+   /* private Set<Role> roleSet;*/
 
 
     public String getPassword() {
@@ -90,22 +92,36 @@ public class User implements Serializable {
         this.createTime = createTime;
     }
 
-    public Set<Role> getRoleSet() {
+   /* public Set<Role> getRoleSet() {
         return roleSet;
     }
 
     public void setRoleSet(Set<Role> roleSet) {
         this.roleSet = roleSet;
-    }
+    }*/
 
     public String getUserId() {
-
         return userId;
-
     }
-
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String getTableName() {
+        return "tb_user";
+    }
+
+    @Override
+    public void setPrimaryKeyValue(Object primaryKeyValue) {
+        if(primaryKeyValue instanceof String){
+            setUserId(primaryKeyValue.toString());
+        }
+    }
+
+    @Override
+    public String getPrimaryKeyName() {
+        return "user_id";
     }
 }

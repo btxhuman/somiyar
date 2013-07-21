@@ -1,7 +1,6 @@
 package com.neaghfoz.component.authorize.dao;
 
-import com.neaghfoz.component.authorize.model.Role;
-import com.neaghfoz.framework.hibernate.IBaseDAO;
+import com.neaghfoz.framework.jdbc.IBaseDAO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,5 +9,5 @@ import com.neaghfoz.framework.hibernate.IBaseDAO;
  * Time: 上午9:30
  * To change this template use File | Settings | File Templates.
  */
-public interface IRoleDAO extends IBaseDAO<Role>{
+public interface IRoleDAO extends IBaseDAO{
 }

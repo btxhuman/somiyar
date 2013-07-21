@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.neaghfoz.component.demo.service.IDemo1Service;
-import com.neaghfoz.framework.hibernate.IBaseDAO;
+import com.neaghfoz.framework.jdbc.IBaseDAO;
 
 public class Demo1Service extends BaseServiceImpl implements IDemo1Service {
 

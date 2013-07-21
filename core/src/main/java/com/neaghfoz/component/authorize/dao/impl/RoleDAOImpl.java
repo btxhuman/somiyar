@@ -1,12 +1,7 @@
 package com.neaghfoz.component.authorize.dao.impl;
 
 import com.neaghfoz.component.authorize.dao.IRoleDAO;
-import com.neaghfoz.component.authorize.model.Role;
-import com.neaghfoz.framework.hibernate.BaseDAOImpl;
-
-import org.hibernate.SessionFactory;
-
-import javax.annotation.Resource;
+import com.neaghfoz.framework.jdbc.BaseDAOImpl;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,6 +10,6 @@ import javax.annotation.Resource;
  * Time: 下午9:46
  * To change this template use File | Settings | File Templates.
  */
-public class RoleDAOImpl extends BaseDAOImpl<Role> implements IRoleDAO{
+public class RoleDAOImpl extends BaseDAOImpl implements IRoleDAO{
 
 }

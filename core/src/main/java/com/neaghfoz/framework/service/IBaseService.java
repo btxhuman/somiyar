@@ -1,6 +1,6 @@
 package com.neaghfoz.framework.service;
 
-import com.neaghfoz.framework.hibernate.IBaseDAO;
+import com.neaghfoz.framework.jdbc.IBaseDAO;
 
 public interface IBaseService {
 	

@@ -3,7 +3,7 @@ package com.neaghfoz.component.authorize.service.impl;
 import com.neaghfoz.framework.service.BaseServiceImpl;
 import com.neaghfoz.component.authorize.dao.IRoleDAO;
 import com.neaghfoz.component.authorize.service.IRoleService;
-import com.neaghfoz.framework.hibernate.IBaseDAO;
+import com.neaghfoz.framework.jdbc.IBaseDAO;
 
 import javax.annotation.Resource;
 

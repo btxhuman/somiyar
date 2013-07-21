@@ -15,7 +15,7 @@
 
 	<bean id="demo1Service" class="com.neaghfoz.component.demo.service.impl.Demo1Service"/>
 	
-    <bean id="demo1DAO" class="com.neaghfoz.component.demo.dao.impl.Demo1DAOImpl" parent="parentSessionFac"/>
+    <bean id="demo1DAO" class="com.neaghfoz.component.demo.dao.impl.Demo1DAOImpl" parent="parentDAO"/>
 
     <bean id="adviceDemo" class="com.neaghfoz.component.demo.aop.AdviceDemo" />
 
