@@ -25,6 +25,10 @@ public class BaseDAOImpl implements IBaseDAO {
 
     protected NamedParameterJdbcTemplate jdbcTemplate;
 
+    private static final Map<Class, List<String>> columnsMap = new HashMap<Class, List<String>>();
+
+    private static final Map<Class, List<Field>> fieldsMap = new HashMap<Class, List<Field>>();
+
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -36,13 +40,11 @@ public class BaseDAOImpl implements IBaseDAO {
 
     public <T extends BaseModel> void insertInto(T object) throws BaseException {
         BaseModel baseModel = object;
+        Class clazz = object.getClass();
         //fieldList与columnNames 是一一对应的
-        List<Field> fieldList = ReflectUtil.getAllFields(object);
-        List<String> columnNames = new ArrayList<String>();
+        List<Field> fieldList = getFields(clazz);
+        List<String> columnNames = getColumns(clazz, fieldList);
         Map<String, Object> map = new HashMap<String, Object>();
-        for (int i = 0, length = fieldList.size(); i < length; i++) {
-            columnNames.add(i, ConvertFiledColumn.convertFiled2Column(fieldList.get(i).getName()));
-        }
         StringBuffer sql = new StringBuffer("insert into " + baseModel.getTableName() + " (");
         for (int i = 0, length = columnNames.size(); i < length; i++) {
             if (i < length - 1) {
@@ -65,5 +67,33 @@ public class BaseDAOImpl implements IBaseDAO {
         String sqlString = sql.toString();
         System.out.println("自动生成的SQL语句为:" + sqlString);
         jdbcTemplate.update(sqlString, map);
+    }
+
+    public <T extends BaseModel> void update(T object, Boolean ignoreNullValue) {
+        Class clazz = object.getClass();
+        //fieldList与columnNames 是一一对应的
+        List<Field> fieldList = getFields(clazz);
+        List<String> columnNames = getColumns(clazz, fieldList);
+    }
+
+    private List<Field> getFields(Class clazz) {
+        List<Field> fieldList = fieldsMap.get(clazz);
+        if (fieldList == null) {
+            fieldList = ReflectUtil.getAllFields(clazz);
+            fieldsMap.put(clazz, fieldList);
+        }
+        return fieldList;
+    }
+
+    private List<String> getColumns(Class clazz, List<Field> fieldList) {
+        List<String> columnsList = columnsMap.get(clazz);
+        if (columnsList == null) {
+            columnsList = new ArrayList<String>(fieldList.size());
+            for (int i = 0, length = fieldList.size(); i < length; i++) {
+                columnsList.add(i, ConvertFiledColumn.convertFiled2Column(fieldList.get(i).getName()));
+            }
+            columnsMap.put(clazz, columnsList);
+        }
+        return columnsList;
     }
 }

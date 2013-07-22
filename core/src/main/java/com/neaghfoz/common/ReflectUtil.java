@@ -74,9 +74,9 @@ public class ReflectUtil {
     }
 
 
-    public static List<Field> getAllFields(Object target){
+    public static List<Field> getAllFields(Class clazz){
         List<Field> fields = new ArrayList<Field>();
-        for (Class<?> superClass = target.getClass(); superClass != Object.class; superClass = superClass.getSuperclass()) {
+        for (Class<?> superClass = clazz; superClass != Object.class; superClass = superClass.getSuperclass()) {
             fields.addAll(Arrays.asList(superClass.getDeclaredFields()));
         }
         return fields;
