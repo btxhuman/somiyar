@@ -1,6 +1,7 @@
 package com.neaghfoz.framework.jdbc;
 
 import com.neaghfoz.component.demo.model.Demo1PO;
+import com.neaghfoz.framework.base.BaseException;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -23,17 +24,30 @@ public class TestBaseDAOImpl {
     static {
         appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         baseDAO = new BaseDAOImpl();
-        DataSource dataSource = appContext.getBean("dataSource",DataSource.class);
-        NamedParameterJdbcTemplate jdbcTemplate = appContext.getBean("jdbcTemplate",NamedParameterJdbcTemplate.class);
+        DataSource dataSource = appContext.getBean("dataSource", DataSource.class);
+        NamedParameterJdbcTemplate jdbcTemplate = appContext.getBean("jdbcTemplate", NamedParameterJdbcTemplate.class);
         baseDAO.setDataSource(dataSource);
         baseDAO.setJdbcTemplate(jdbcTemplate);
     }
+
     @Test
     public void testInsertInto() throws Exception {
         Demo1PO demo1PO = new Demo1PO();
         demo1PO.setDemo1Id(UUID.randomUUID().toString());
         demo1PO.setName(null);
         baseDAO.insertInto(demo1PO);
+    }
 
+    @Test
+    public void testUpdate() throws BaseException {
+        Demo1PO demo1PO = new Demo1PO();
+        String pk = UUID.randomUUID().toString();
+        demo1PO.setDemo1Id(pk);
+        demo1PO.setName("XXXXZX");
+        demo1PO.setSex("0");
+        baseDAO.insertInto(demo1PO);
+        demo1PO.setSex("9");
+        demo1PO.setName("FXXK");
+        baseDAO.update(demo1PO, true);
     }
 }

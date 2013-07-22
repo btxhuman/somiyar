@@ -4,10 +4,12 @@ import com.neaghfoz.framework.jdbc.BaseModel;
 
 import java.io.Serializable;
 
-public class Demo1PO implements Serializable,BaseModel {
+public class Demo1PO implements Serializable, BaseModel {
     private String demo1Id;
 
     private String name;
+
+    private String sex;
 
     public String getDemo1Id() {
         return demo1Id;
@@ -25,6 +27,14 @@ public class Demo1PO implements Serializable,BaseModel {
         return name;
     }
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
     @Override
     public String getTableName() {
         return "tb_demo1";
@@ -32,9 +42,9 @@ public class Demo1PO implements Serializable,BaseModel {
 
     @Override
     public void setPrimaryKeyValue(Object primaryKeyValue) {
-       if(primaryKeyValue instanceof String){
-           setDemo1Id(primaryKeyValue.toString());
-       }
+        if (primaryKeyValue instanceof String) {
+            setDemo1Id(primaryKeyValue.toString());
+        }
     }
 
     @Override

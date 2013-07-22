@@ -45,6 +45,7 @@ public class BaseDAOImpl implements IBaseDAO {
         List<Field> fieldList = getFields(clazz);
         List<String> columnNames = getColumns(clazz, fieldList);
         Map<String, Object> map = new HashMap<String, Object>();
+
         StringBuffer sql = new StringBuffer("insert into " + baseModel.getTableName() + " (");
         for (int i = 0, length = columnNames.size(); i < length; i++) {
             if (i < length - 1) {
@@ -52,7 +53,6 @@ public class BaseDAOImpl implements IBaseDAO {
             } else {
                 sql.append(columnNames.get(i) + ")");
             }
-
         }
         sql.append(" values (");
         for (int i = 0, length = fieldList.size(); i < length; i++) {
@@ -74,6 +74,27 @@ public class BaseDAOImpl implements IBaseDAO {
         //fieldList与columnNames 是一一对应的
         List<Field> fieldList = getFields(clazz);
         List<String> columnNames = getColumns(clazz, fieldList);
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        StringBuffer sql = new StringBuffer("update " + object.getTableName() + " set ");
+        for (int i = 0, length = fieldList.size(); i < length; i++) {
+            Field field = fieldList.get(i);
+            Object result = ReflectUtil.invokeGetterMethod(object, field.getName());
+            if (columnNames.get(i).equalsIgnoreCase(object.getPrimaryKeyName())
+                    || (null == result && ignoreNullValue)) {
+                continue;
+            } else {
+                map.put(field.getName(), result);
+                sql.append(columnNames.get(i) + " = :" + field.getName() + ", ");
+            }
+        }
+        sql.append(object.getPrimaryKeyName() + " = " + object.getPrimaryKeyName());
+        Object pkValue = ReflectUtil.invokeGetterMethod(object, ConvertFiledColumn.convertColumn2Filed(object.getPrimaryKeyName()));
+        sql.append(" where " + object.getPrimaryKeyName() + " = :_primaryKey");
+        map.put("_primaryKey", pkValue);
+        String sqlString = sql.toString();
+        System.out.println("自动生成的SQL语句为:" + sqlString);
+        jdbcTemplate.update(sqlString, map);
     }
 
     private List<Field> getFields(Class clazz) {
