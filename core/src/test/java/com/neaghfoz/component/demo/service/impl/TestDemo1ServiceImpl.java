@@ -23,14 +23,14 @@ public class TestDemo1ServiceImpl {
 
     @Test
     public void testSaveDemo1() throws SQLException{
-    	Demo1PO demo1po = new Demo1PO();
+    	/*Demo1PO demo1po = new Demo1PO();
     	demo1po.setName("yeah");
-        demo1Service.saveObj(demo1po);
+        demo1Service.saveObj(demo1po);*/
     }
 
     @Test
     public void testGetDemo1po(){
-    	Demo1PO demo1po = demo1Service.getDemo1po("2c948fef3e68495d013e684964080000");
+//    	Demo1PO demo1po = demo1Service.getDemo1po("2c948fef3e68495d013e684964080000");
 
     }
 

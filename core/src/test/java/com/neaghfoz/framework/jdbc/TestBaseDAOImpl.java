@@ -41,11 +41,11 @@ public class TestBaseDAOImpl {
     @Test
     public void testUpdate() throws BaseException {
         Demo1PO demo1PO = new Demo1PO();
-        String pk = UUID.randomUUID().toString();
+        String pk = "7c5c9acd-41d8-4cdc-acd0-2eedd1540071";
         demo1PO.setDemo1Id(pk);
         demo1PO.setName("XXXXZX");
         demo1PO.setSex("0");
-        baseDAO.insertInto(demo1PO);
+
         demo1PO.setSex("9");
         demo1PO.setName("FXXK");
         baseDAO.update(demo1PO, true);
