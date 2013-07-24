@@ -45,7 +45,7 @@ public class TestBaseDAOImpl {
         demo1PO.setDemo1Id(pk);
         demo1PO.setName("XXXXZX");
         demo1PO.setSex("0");
-
+        baseDAO.insertInto(demo1PO);
         demo1PO.setSex("9");
         demo1PO.setName("FXXK");
         baseDAO.update(demo1PO, true);
