@@ -55,6 +55,15 @@ public class BaseAction extends ActionSupport {
      */
     protected String save;
 
+    protected String path = this.getBasePath();
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     /**
      * Velocity template to use for e-mailing

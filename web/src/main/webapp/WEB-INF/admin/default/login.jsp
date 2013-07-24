@@ -1,12 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    String path = request.getContextPath();
-    request.setAttribute("path", path);
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <jsp:include page="../../../common/charisma_head.jsp"/>
     <meta charset="utf-8">
     <title>管理后台登录页面</title>
 </head>
@@ -19,9 +15,7 @@
             <div class="span12 center login-header">
                 <h2>欢迎回来</h2>
             </div>
-            <!--/span-->
         </div>
-        <!--/row-->
 
         <div class="row-fluid">
             <div class="well span5 center login-box">
@@ -55,14 +49,9 @@
                     </fieldset>
                 </form>
             </div>
-            <!--/span-->
         </div>
-        <!--/row-->
     </div>
-    <!--/fluid-row-->
-
 </div>
-<!--/.fluid-container-->
-
+<jsp:include page="../../../common/charisma_bottom.jsp"/>
 </body>
 </html>

@@ -4,6 +4,8 @@
         <pattern>/*ajax=true*</pattern>
         <pattern>/struts/*</pattern>
         <pattern>/resources/*</pattern>
+        <pattern>/sysadmin/user/toLogin</pattern>
+        <pattern>/sysadmin/user/login</pattern>
     </excludes>
     <decorator name="default" page="default.jsp">
         <pattern>/*</pattern>
