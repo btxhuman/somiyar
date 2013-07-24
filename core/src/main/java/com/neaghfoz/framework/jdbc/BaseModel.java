@@ -13,6 +13,8 @@ public interface BaseModel {
 
     public void setPrimaryKeyValue(Object primaryKeyValue);
 
+    public Object getPrimaryKeyValue();
+
     public String getPrimaryKeyName();
 
 }

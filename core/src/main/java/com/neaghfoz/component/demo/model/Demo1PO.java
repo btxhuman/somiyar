@@ -48,6 +48,11 @@ public class Demo1PO implements Serializable, BaseModel {
     }
 
     @Override
+    public Object getPrimaryKeyValue() {
+        return getDemo1Id();
+    }
+
+    @Override
     public String getPrimaryKeyName() {
         return "demo1_id";
     }

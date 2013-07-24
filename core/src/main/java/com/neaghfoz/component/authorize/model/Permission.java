@@ -84,6 +84,11 @@ public class Permission implements Serializable, BaseModel {
     }
 
     @Override
+    public Object getPrimaryKeyValue() {
+        return getPermissionId();
+    }
+
+    @Override
     public String getPrimaryKeyName() {
         return "permission_id";
     }

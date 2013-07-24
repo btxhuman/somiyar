@@ -50,4 +50,15 @@ public class TestBaseDAOImpl {
         demo1PO.setName("FXXK");
         baseDAO.update(demo1PO, true);
     }
+
+    @Test
+    public void testDeleteByPK() throws BaseException {
+        Demo1PO demo1PO = new Demo1PO();
+        String pk = UUID.randomUUID().toString();
+        demo1PO.setDemo1Id(pk);
+        demo1PO.setName("XXXXZX");
+        demo1PO.setSex("0");
+        baseDAO.insertInto(demo1PO);
+        baseDAO.deleteByPK(demo1PO);
+    }
 }

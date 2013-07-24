@@ -77,26 +77,37 @@ public class BaseDAOImpl implements IBaseDAO {
         Map<String, Object> map = new HashMap<String, Object>();
 
         StringBuffer sql = new StringBuffer("update " + object.getTableName() + " set ");
-        String primaryKeyField = null;
         for (int i = 0, length = fieldList.size(); i < length; i++) {
             Field field = fieldList.get(i);
             Object result = ReflectUtil.invokeGetterMethod(object, field.getName());
-            if (null == result && ignoreNullValue) {
+            if (columnNames.get(i).equalsIgnoreCase(object.getPrimaryKeyName())
+                    || (null == result && ignoreNullValue)) {
                 continue;
-            } else if (columnNames.get(i).equalsIgnoreCase(object.getPrimaryKeyName())) {
-                primaryKeyField = fieldList.get(i).getName();
             } else {
                 map.put(field.getName(), result);
                 sql.append(columnNames.get(i) + " = :" + field.getName() + ", ");
             }
         }
         sql.append(object.getPrimaryKeyName() + " = " + object.getPrimaryKeyName());
-        Object pkValue = ReflectUtil.invokeGetterMethod(object, primaryKeyField);
         sql.append(" where " + object.getPrimaryKeyName() + " = :_primaryKey_");
-        map.put("_primaryKey_", pkValue);
+        map.put("_primaryKey_", object.getPrimaryKeyValue());
         String sqlString = sql.toString();
         System.out.println("自动生成的SQL语句为:" + sqlString);
         jdbcTemplate.update(sqlString, map);
+    }
+
+    public <T extends BaseModel> void deleteByPK(T object) {
+        StringBuffer sql = new StringBuffer("delete from " + object.getTableName() +
+                " where " + object.getPrimaryKeyName() + "=" + ":_primaryKey_");
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("_primaryKey_", object.getPrimaryKeyValue());
+        String sqlString = sql.toString();
+        System.out.println("自动生成的SQL语句为:" + sqlString);
+        jdbcTemplate.update(sqlString, map);
+    }
+
+    public <T> List<T> getList(String sql, Map<String, Object> paramsMap, Class<T> clazz) {
+        return null;
     }
 
     private List<Field> getFields(Class clazz) {

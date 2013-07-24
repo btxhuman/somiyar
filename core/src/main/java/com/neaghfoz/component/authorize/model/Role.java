@@ -13,17 +13,17 @@ import java.util.Set;
  * Time: 上午9:30
  * To change this template use File | Settings | File Templates.
  */
-public class Role implements Serializable,BaseModel{
+public class Role implements Serializable, BaseModel {
     private String roleId;
     private String roleName;
 /*    private Set<User> userSet;
     private Set<Permission> permissionSet;*/
 
-    public Role(){
+    public Role() {
         super();
     }
 
-    public Role(String roleId){
+    public Role(String roleId) {
         this.roleId = roleId;
     }
 
@@ -66,9 +66,14 @@ public class Role implements Serializable,BaseModel{
 
     @Override
     public void setPrimaryKeyValue(Object primaryKeyValue) {
-        if(primaryKeyValue instanceof String){
+        if (primaryKeyValue instanceof String) {
             setRoleId(primaryKeyValue.toString());
         }
+    }
+
+    @Override
+    public Object getPrimaryKeyValue() {
+        return getRoleId();
     }
 
     @Override

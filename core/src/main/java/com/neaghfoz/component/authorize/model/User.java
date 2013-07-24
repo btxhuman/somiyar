@@ -14,7 +14,7 @@ import java.util.Set;
  * Time: 上午9:17
  * To change this template use File | Settings | File Templates.
  */
-public class User implements Serializable,BaseModel{
+public class User implements Serializable, BaseModel {
     private String userId; //用户ID
     private String userName; //登录的用户名
     private Integer sex; //性别
@@ -115,9 +115,14 @@ public class User implements Serializable,BaseModel{
 
     @Override
     public void setPrimaryKeyValue(Object primaryKeyValue) {
-        if(primaryKeyValue instanceof String){
+        if (primaryKeyValue instanceof String) {
             setUserId(primaryKeyValue.toString());
         }
+    }
+
+    @Override
+    public Object getPrimaryKeyValue() {
+        return getUserId();
     }
 
     @Override
