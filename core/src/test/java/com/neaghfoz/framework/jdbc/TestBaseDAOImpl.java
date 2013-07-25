@@ -8,6 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -34,14 +35,14 @@ public class TestBaseDAOImpl {
     public void testInsertInto() throws Exception {
         Demo1PO demo1PO = new Demo1PO();
         demo1PO.setDemo1Id(UUID.randomUUID().toString());
-        demo1PO.setName(null);
+        demo1PO.setName(System.currentTimeMillis() + "");
         baseDAO.insertInto(demo1PO);
     }
 
     @Test
     public void testUpdate() throws BaseException {
         Demo1PO demo1PO = new Demo1PO();
-        String pk = "7c5c9acd-41d8-4cdc-acd0-2eedd1540071";
+        String pk = UUID.randomUUID().toString();
         demo1PO.setDemo1Id(pk);
         demo1PO.setName("XXXXZX");
         demo1PO.setSex("0");
@@ -60,5 +61,22 @@ public class TestBaseDAOImpl {
         demo1PO.setSex("0");
         baseDAO.insertInto(demo1PO);
         baseDAO.deleteByPK(demo1PO);
+    }
+
+    @Test
+    public void testGetList() throws BaseException {
+        String sql = "select * from tb_demo1";
+        for (int i = 0; i < 10; i++) {
+            Demo1PO demo1PO = new Demo1PO();
+            String pk = UUID.randomUUID().toString();
+            demo1PO.setDemo1Id(pk);
+            demo1PO.setName("XXXXZX");
+            demo1PO.setSex("0");
+            baseDAO.insertInto(demo1PO);
+        }
+        List<Demo1PO> list = baseDAO.getList(sql, null, Demo1PO.class);
+        for (Demo1PO demo1PO : list) {
+            System.out.println(demo1PO.getName());
+        }
     }
 }

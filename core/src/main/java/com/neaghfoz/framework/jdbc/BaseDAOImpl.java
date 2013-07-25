@@ -1,12 +1,16 @@
 package com.neaghfoz.framework.jdbc;
 
 import com.neaghfoz.common.ReflectUtil;
-import com.neaghfoz.component.demo.model.Demo1PO;
 import com.neaghfoz.framework.base.BaseException;
+import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +24,8 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class BaseDAOImpl implements IBaseDAO {
+
+    private static final Logger log = Logger.getLogger(BaseDAOImpl.class);
 
     protected DataSource dataSource;
 
@@ -39,14 +45,14 @@ public class BaseDAOImpl implements IBaseDAO {
     }
 
     public <T extends BaseModel> void insertInto(T object) throws BaseException {
-        BaseModel baseModel = object;
+
         Class clazz = object.getClass();
         //fieldList与columnNames 是一一对应的
         List<Field> fieldList = getFields(clazz);
         List<String> columnNames = getColumns(clazz, fieldList);
         Map<String, Object> map = new HashMap<String, Object>();
 
-        StringBuffer sql = new StringBuffer("insert into " + baseModel.getTableName() + " (");
+        StringBuffer sql = new StringBuffer("insert into " + object.getTableName() + " (");
         for (int i = 0, length = columnNames.size(); i < length; i++) {
             if (i < length - 1) {
                 sql.append(columnNames.get(i) + ",");
@@ -106,9 +112,30 @@ public class BaseDAOImpl implements IBaseDAO {
         jdbcTemplate.update(sqlString, map);
     }
 
-    public <T> List<T> getList(String sql, Map<String, Object> paramsMap, Class<T> clazz) {
-        return null;
+    public <T> List<T> getList(final String sql, final Map<String, Object> paramsMap, final Class<T> clazz) {
+        List<T> list = null;
+        list = jdbcTemplate.query(sql, paramsMap, new RowMapper<T>() {
+            @Override
+            public T mapRow(ResultSet rs, int rowNum) throws SQLException {
+                try {
+                    Constructor<T> constructor = clazz.getConstructor();
+                    T obj = constructor.newInstance();
+                    List<Field> fieldList = getFields(clazz);
+                    List<String> columnNames = getColumns(clazz, fieldList);
+                    for (int i = 0, length = fieldList.size(); i < length; i++) {
+                        Field field = fieldList.get(i);
+                        ReflectUtil.invokeSetterMethod(obj, field.getName(), rs.getObject(columnNames.get(i)), field.getType());
+                    }
+                    return obj;
+                } catch (Exception e) {
+                    log.error("不存在构造方法", e);
+                    throw new SQLException(e);
+                }
+            }
+        });
+        return list;
     }
+
 
     private List<Field> getFields(Class clazz) {
         List<Field> fieldList = fieldsMap.get(clazz);
