@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,9 +32,9 @@ public class BaseDAOImpl implements IBaseDAO {
 
     protected NamedParameterJdbcTemplate jdbcTemplate;
 
-    private static final Map<Class, List<String>> columnsMap = new HashMap<Class, List<String>>();
+    private static final Map<Class, List<String>> columnsMap = new ConcurrentHashMap<Class, List<String>>();
 
-    private static final Map<Class, List<Field>> fieldsMap = new HashMap<Class, List<Field>>();
+    private static final Map<Class, List<Field>> fieldsMap = new ConcurrentHashMap<Class, List<Field>>();
 
 
     public void setDataSource(DataSource dataSource) {
